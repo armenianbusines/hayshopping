@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HayShop - Հայկական Խանութների Հարթակ</title>
+    <style>
+        :root {
+            --primary: #d97706;
+            --secondary: #1e293b;
+            --light: #f1f5f9;
+            --white: #ffffff;
+            --success: #22c55e;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background-color: var(--light);
+            color: var(--secondary);
+        }
+
+        header {
+            background: var(--secondary);
+            color: white;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0; z-index: 1000;
+        }
+
+        .nav-btns { display: flex; gap: 10px; }
+        
+        button {
+            padding: 10px 18px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-main { background: var(--primary); color: white; }
+        .btn-outline { background: transparent; color: white; border: 1px solid white; }
+        .btn-search { background: var(--secondary); color: white; height: 42px; }
+
+        .search-area {
+            background: white;
+            padding: 20px 5%;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #ddd;
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 30px 5%;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card-content { padding: 20px; }
+
+        .status-label {
+            position: absolute;
+            top: 10px; right: 10px;
+            background: var(--danger);
+            color: white;
+            padding: 4px 8px;
+            font-size: 12px;
+            border-radius: 4px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+        }
+
+        .modal-body {
+            background: white;
+            margin: 40px auto;
+            padding: 30px;
+            width: 90%;
+            max-width: 550px;
+            border-radius: 12px;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .form-group { margin-bottom: 15px; display: flex; flex-direction: column; }
+        .form-group label { margin-bottom: 5px; font-weight: bold; }
+
+        video { width: 100%; border-radius: 8px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2 onclick="location.reload()" style="cursor:pointer">HayShop</h2>
+    <div class="nav-btns">
+        <button class="btn-outline" onclick="location.reload()">Գլխավոր</button>
+        <button class="btn-main" onclick="openM('addModal')">+ Ավելացնել</button>
+        <button style="background:#475569; color:white;" onclick="openM('adminModal')">Ադմին</button>
+    </div>
+</header>
+
+<div class="search-area">
+    <input type="text" id="filterName" placeholder="Որոնել անունով...">
+    <select id="filterCity">
+        <option value="">Բոլոր քաղաքները</option>
+        <option value="Երևան">Երևան</option>
+        <option value="Գյումրի">Գյումրի</option>
+        <option value="Վանաձոր">Վանաձոր</option>
+        <option value="Արմավիր">Արմավիր</option>
+        <option value="Դիլիջան">Դիլիջան</option>
+    </select>
+    <button class="btn-search" onclick="render()">Որոնել</button>
+</div>
+
+<div class="grid" id="mainGrid"></div>
+
+<div id="addModal" class="modal">
+    <div class="modal-body">
+        <h3>Ավելացնել Բիզնես</h3>
+        <form id="shopForm">
+            <div class="form-group"><label>Անվանում</label><input type="text" id="shopName" required></div>
+            <div class="form-group">
+                <label>Քաղաք</label>
+                <select id="shopCity" required>
+                    <option value="Երևան">Երևան</option>
+                    <option value="Գյումրի">Գյումրի</option>
+                    <option value="Վանաձոր">Վանաձոր</option>
+                </select>
+            </div>
+            <div class="form-group"><label>Նկարագրություն</label><textarea id="shopDesc" rows="3"></textarea></div>
+            <div class="form-group"><label>Լոգո (Նկար)</label><input type="file" id="shopLogo" accept="image/*" required></div>
+            <div class="form-group"><label>Տեսանյութ (Ոչ պարտադիր)</label><input type="file" id="shopVideo" accept="video/*"></div>
+            <button type="submit" style="width:100%; background:var(--success); color:white; padding:12px;">Ուղարկել</button>
+            <button type="button" onclick="closeM('addModal')" style="width:100%; background:none; color:gray;">Փակել</button>
+        </form>
+    </div>
+</div>
+
+<div id="adminModal" class="modal">
+    <div class="modal-body" style="max-width:300px">
+        <h3>Ադմին մուտք</h3>
+        <input type="password" id="passInput" placeholder="Գաղտնաբառ" style="width:100%; margin-bottom:15px;">
+        <button onclick="checkAdmin()" style="width:100%; background:var(--secondary); color:white;">Մուտք</button>
+    </div>
+</div>
+
+<div id="detailModal" class="modal">
+    <div class="modal-body" id="detailView"></div>
+</div>
+
+<script>
+    // Տվյալների վերականգնում localStorage-ից
+    let shops = JSON.parse(localStorage.getItem('hayshop_data')) || [];
+    let isAdmin = false;
+
+    function openM(id) { document.getElementById(id).style.display = 'block'; }
+    function closeM(id) { document.getElementById(id).style.display = 'none'; }
+
+    function checkAdmin() {
+        if(document.getElementById('passInput').value === "Զաքար") {
+            isAdmin = true;
+            closeM('adminModal');
+            render();
+        } else { alert("Սխալ գաղտնաբառ"); }
+    }
+
+    document.getElementById('shopForm').onsubmit = function(e) {
+        e.preventDefault();
+        const logoFile = document.getElementById('shopLogo').files[0];
+        const videoFile = document.getElementById('shopVideo').files[0];
+
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const newShop = {
+                id: Date.now(),
+                name: document.getElementById('shopName').value,
+                city: document.getElementById('shopCity').value,
+                desc: document.getElementById('shopDesc').value,
+                logo: event.target.result,
+                video: videoFile ? URL.createObjectURL(videoFile) : null,
+                approved: false
+            };
+            shops.push(newShop);
+            saveData();
+            alert("Հայտը ստացված է: Զաքարի հաստատումից հետո այն կհայտնվի կայքում:");
+            closeM('addModal');
+            document.getElementById('shopForm').reset();
+            render();
+        };
+        reader.readAsDataURL(logoFile);
+    };
+
+    function approve(id) {
+        const idx = shops.findIndex(s => s.id === id);
+        if(idx > -1) {
+            shops[idx].approved = true;
+            saveData();
+            render();
+        }
+    }
+
+    function remove(id) {
+        if(confirm("Ջնջե՞լ այս բիզնեսը")) {
+            shops = shops.filter(s => s.id !== id);
+            saveData();
+            render();
+        }
+    }
+
+    function saveData() {
+        // Պահում ենք տվյալները բրաուզերի հիշողության մեջ
+        localStorage.setItem('hayshop_data', JSON.stringify(shops));
+    }
+
+    function render() {
+        const grid = document.getElementById('mainGrid');
+        const fName = document.getElementById('filterName').value.toLowerCase();
+        const fCity = document.getElementById('filterCity').value;
+        grid.innerHTML = '';
+
+        shops.forEach(s => {
+            if(!isAdmin && !s.approved) return; // Սովորական օգտատերը տեսնում է միայն հաստատվածները
+            if(fName && !s.name.toLowerCase().includes(fName)) return;
+            if(fCity && s.city !== fCity) return;
+
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                ${!s.approved ? '<div class="status-label">Սպասող</div>' : ''}
+                <img src="${s.logo}">
+                <div class="card-content">
+                    <h3>${s.name}</h3>
+                    <p>📍 ${s.city}</p>
+                    <button class="btn-main" style="width:100%" onclick="view(${s.id})">Տեսնել ավելին</button>
+                    ${isAdmin ? `
+                        <div style="margin-top:10px; display:flex; gap:5px;">
+                            ${!s.approved ? `<button onclick="approve(${s.id})" style="flex:1; background:var(--success); color:white;">Հաստատել</button>` : ''}
+                            <button onclick="remove(${s.id})" style="flex:1; background:var(--danger); color:white;">Ջնջել</button>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    function view(id) {
+        const s = shops.find(x => x.id === id);
+        const view = document.getElementById('detailView');
+        view.innerHTML = `
+            <h2>${s.name}</h2>
+            <p><strong>Քաղաք:</strong> ${s.city}</p>
+            <p>${s.desc}</p>
+            <img src="${s.logo}" style="width:100%; border-radius:10px;">
+            ${s.video ? `<video controls src="${s.video}"></video>` : ''}
+            <button onclick="closeM('detailModal')" style="width:100%; margin-top:20px; background:var(--secondary); color:white;">← Վերադառնալ գլխավոր</button>
+        `;
+        openM('detailModal');
+    }
+
+    // Առաջին անգամ բեռնելիս
+    render();
+</script>
+
+</body>
+</html>
