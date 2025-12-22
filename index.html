@@ -10,6 +10,63 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
     <style>
+        .site-footer {
+    background-color: #1e293b; /* Մուտ կապույտ գույն */
+    color: #ffffff;
+    padding: 40px 5% 20px;
+    margin-top: auto;
+    border-top: 4px solid #d97706; /* Նարնջագույն շերտ վերևում */
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section h3 {
+    color: #d97706;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #475569;
+    padding-bottom: 10px;
+}
+
+.footer-section p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: #cbd5e1;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #475569;
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+/* Հեռախոսների համար հարմարեցում */
+@media (max-width: 600px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
         :root {
             --himnakan: #d97706;
             --mut-kapuyt: #1e293b;
@@ -249,10 +306,32 @@
 
 <div id="loading" style="text-align:center; padding:20px;">Բեռնվում է...</div>
 <div class="grid" id="himnakanGrid"></div>
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-section about">
+            <h3>HayShop Հարթակի Մասին</h3>
+            <p>HayShop-ը ժամանակակից հայկական հարթակ է, որը ստեղծված է տեղական բիզնեսներին և հաճախորդներին մեկ տեղում հանդիպեցնելու համար: Մենք օգնում ենք փոքր և միջին ձեռնարկություններին լինել տեսանելի թվային աշխարհում:</p>
+        </div>
 
-<footer class="footer-content">
-    <h3 style="color: var(--himnakan);">HayShop</h3>
-    <p>© 2025 - Հայկական Խանութների Հարթակ</p>
+        <div class="footer-section solutions">
+            <h3>Ի՞նչ լուծումներ ենք առաջարկում</h3>
+            <ul>
+                <li>✅ Բիզնեսի թվային ներկայացվածություն</li>
+                <li>✅ Տեսանյութերի միջոցով ծառայությունների ցուցադրում</li>
+                <li>✅ Թիրախային որոնում ըստ քաղաքների</li>
+                <li>✅ Արագ կապ հաճախորդների հետ</li>
+            </ul>
+        </div>
+
+        <div class="footer-section why-us">
+            <h3>Ինչո՞ւ գրանցվել մեզ մոտ</h3>
+            <p>Գրանցվելով HayShop-ում՝ Դուք ստանում եք անվճար գովազդային հարթակ, որը հասանելի է Հայաստանի բոլոր քաղաքներում: Մեր կայքը օպտիմիզացված է այնպես, որ աշխատի անգամ ամենաթույլ սարքերի վրա՝ Ձեզ ապահովելով առավելագույն լսարան:</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2025 HayShop - Բոլոր իրավունքները պաշտպանված են</p>
+    </div>
 </footer>
 
 <div id="avelacmanModal" class="modal"><div class="modal-body">
