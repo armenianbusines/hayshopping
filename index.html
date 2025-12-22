@@ -47,6 +47,7 @@
             border: none;
             cursor: pointer;
             font-weight: bold;
+            transition: 0.3s;
         }
 
         .btn-glxavor { background: var(--himnakan); color: white; }
@@ -69,13 +70,12 @@
             border-radius: 6px;
         }
 
-        .grid-container { flex: 1; }
-
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
             padding: 30px 5%;
+            flex: 1;
         }
 
         .qart {
@@ -99,19 +99,6 @@
             border-radius: 4px;
         }
 
-        footer {
-            background: var(--mut-kapuyt);
-            color: white;
-            padding: 40px 5%;
-            margin-top: 120px;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
         .modal {
             display: none;
             position: fixed;
@@ -130,19 +117,17 @@
             border-radius: 12px;
             max-height: 85vh;
             overflow-y: auto;
-            color: var(--mut-kapuyt);
         }
 
         .form-xmbi { margin-bottom: 15px; display: flex; flex-direction: column; }
         .form-xmbi label { margin-bottom: 5px; font-weight: bold; }
 
-        video { width: 100%; border-radius: 8px; margin-top: 15px; background: #000; }
-        
-        #loading {
+        footer {
+            background: var(--mut-kapuyt);
+            color: white;
+            padding: 40px 5%;
+            margin-top: 50px;
             text-align: center;
-            padding: 50px;
-            font-size: 20px;
-            color: var(--mut-kapuyt);
         }
     </style>
 </head>
@@ -162,35 +147,49 @@
     <select id="kaxaqiVoronum">
         <option value="">Բոլոր քաղաքները</option>
         <option value="Երևան">Երևան</option>
-        <option value="Գյումրի">Գյումրի</option>
-        <option value="Վանաձոր">Վանաձոր</option>
-        <option value="Աբովյան">Աբովյան</option>
-        <option value="Վաղարշապատ">Վաղարշապատ</option>
-        <option value="Հրազդան">Հրազդան</option>
-        <option value="Կապան">Կապան</option>
-        <option value="Արմավիր">Արմավիր</option>
-        <option value="Դիլիջան">Դիլիջան</option>
+        <optgroup label="Արագածոտն">
+            <option value="Աշտարակ">Աշտարակ</option><option value="Ապարան">Ապարան</option><option value="Թալին">Թալին</option>
+        </optgroup>
+        <optgroup label="Արարատ">
+            <option value="Արտաշատ">Արտաշատ</option><option value="Արարատ">Արարատ</option><option value="Մասիս">Մասիս</option><option value="Վեդի">Վեդի</option>
+        </optgroup>
+        <optgroup label="Արմավիր">
+            <option value="Արմավիր">Արմավիր</option><option value="Վաղարշապատ">Վաղարշապատ</option><option value="Մեծամոր">Մեծամոր</option>
+        </optgroup>
+        <optgroup label="Գեղարքունիք">
+            <option value="Գավառ">Գավառ</option><option value="Սևան">Սևան</option><option value="Մարտունի">Մարտունի</option><option value="Վարդենիս">Վարդենիս</option>
+        </optgroup>
+        <optgroup label="Լոռի">
+            <option value="Վանաձոր">Վանաձոր</option><option value="Ստեփանավան">Ստեփանավան</option><option value="Ալավերդի">Ալավերդի</option><option value="Սպիտակ">Սպիտակ</option>
+        </optgroup>
+        <optgroup label="Կոտայք">
+            <option value="Հրազդան">Հրազդան</option><option value="Աբովյան">Աբովյան</option><option value="Չարենցավան">Չարենցավան</option><option value="Ծաղկաձոր">Ծաղկաձոր</option>
+        </optgroup>
+        <optgroup label="Շիրակ">
+            <option value="Գյումրի">Գյումրի</option><option value="Արթիկ">Արթիկ</option>
+        </optgroup>
+        <optgroup label="Սյունիք">
+            <option value="Կապան">Կապան</option><option value="Գորիս">Գորիս</option><option value="Սիսիան">Սիսիան</option><option value="Մեղրի">Մեղրի</option>
+        </optgroup>
+        <optgroup label="Վայոց Ձոր">
+            <option value="Եղեգնաձոր">Եղեգնաձոր</option><option value="Ջերմուկ">Ջերմուկ</option>
+        </optgroup>
+        <optgroup label="Տավուշ">
+            <option value="Իջևան">Իջևան</option><option value="Դիլիջան">Դիլիջան</option><option value="Բերդ">Բերդ</option>
+        </optgroup>
     </select>
     <button class="btn-glxavor" onclick="nkarelGulyavorEjy()">Որոնել</button>
 </div>
 
-<div class="grid-container">
-    <div id="loading">Բեռնվում է...</div>
-    <div class="grid" id="himnakanGrid"></div>
-</div>
+<div id="loading">Բեռնվում է...</div>
+<div class="grid" id="himnakanGrid"></div>
 
 <footer>
     <div class="footer-content">
-        <h3 style="color: var(--himnakan); margin-bottom: 10px;">Մեր Հարթակի Մասին</h3>
-        <p style="font-size: 14px; opacity: 0.8;">HayShop-ը ստեղծված է աջակցելու հայկական տեղական արտադրողներին և օնլայն խանութներին։</p>
-        
-        <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
-            <p style="font-size: 14px; margin-bottom: 5px;">Հարցերի կամ համագործակցության համար՝</p>
-            <a href="mailto:grigoryangrigoryan@gmail.com" style="color: var(--himnakan); text-decoration: none; font-weight: bold; font-size: 16px;">
-                ✉ grigoryangrigoryan@gmail.com
-            </a>
-        </div>
-        <p style="opacity: 0.5; font-size: 11px; margin-top: 30px;">© 2025 HayShop - Բոլոր իրավունքները պաշտպանված են։</p>
+        <h3 style="color: var(--himnakan);">HayShop</h3>
+        <p>Հայկական տեղական բիզնեսների հարթակ:</p>
+        <p>✉ grigoryangrigoryan@gmail.com</p>
+        <p>© 2025 - Բոլոր իրավունքները պաշտպանված են:</p>
     </div>
 </footer>
 
@@ -203,17 +202,23 @@
                 <label>Քաղաք *</label>
                 <select id="bKaxaq" required>
                     <option value="Երևան">Երևան</option>
-                    <option value="Գյումրի">Գյումրի</option>
-                    <option value="Վանաձոր">Վանաձոր</option>
-                    <option value="Արմավիր">Արմավիր</option>
-                    <option value="Դիլիջան">Դիլիջան</option>
+                    <option value="Աշտարակ">Աշտարակ</option><option value="Ապարան">Ապարան</option><option value="Թալին">Թալին</option>
+                    <option value="Արտաշատ">Արտաշատ</option><option value="Արարատ">Արարատ</option><option value="Մասիս">Մասիս</option><option value="Վեդի">Վեդի</option>
+                    <option value="Արմավիր">Արմավիր</option><option value="Վաղարշապատ">Վաղարշապատ</option><option value="Մեծամոր">Մեծամոր</option>
+                    <option value="Գավառ">Գավառ</option><option value="Սևան">Սևան</option><option value="Մարտունի">Մարտունի</option><option value="Վարդենիս">Վարդենիս</option>
+                    <option value="Վանաձոր">Վանաձոր</option><option value="Ստեփանավան">Ստեփանավան</option><option value="Ալավերդի">Ալավերդի</option><option value="Սպիտակ">Սպիտակ</option>
+                    <option value="Հրազդան">Հրազդան</option><option value="Աբովյան">Աբովյան</option><option value="Չարենցավան">Չարենցավան</option><option value="Ծաղկաձոր">Ծաղկաձոր</option>
+                    <option value="Գյումրի">Գյումրի</option><option value="Արթիկ">Արթիկ</option>
+                    <option value="Կապան">Կապան</option><option value="Գորիս">Գորիս</option><option value="Սիսիան">Սիսիան</option><option value="Մեղրի">Մեղրի</option>
+                    <option value="Եղեգնաձոր">Եղեգնաձոր</option><option value="Ջերմուկ">Ջերմուկ</option>
+                    <option value="Իջևան">Իջևան</option><option value="Դիլիջան">Դիլիջան</option><option value="Բերդ">Բերդ</option>
                 </select>
             </div>
             <div class="form-xmbi"><label>Նկարագրություն</label><textarea id="bNkaragir" rows="3"></textarea></div>
             <div class="form-xmbi"><label>Լոգո (Նկար) *</label><input type="file" id="bLogo" accept="image/*" required></div>
             <div class="form-xmbi"><label>Տեսանյութ (Մինչև 5մբ)</label><input type="file" id="bVideo" accept="video/*"></div>
-            <button type="submit" id="submitBtn" style="width:100%; background:var(--kanach); color:white; padding:12px;">Ուղարկել հաստատման</button>
-            <button type="button" onclick="pakelModal('avelacmanModal')" style="width:100%; background:none; color:gray; margin-top:10px;">Փակել</button>
+            <button type="submit" id="submitBtn" style="width:100%; background:var(--kanach); color:white; padding:12px; border:none; border-radius:6px; cursor:pointer;">Ուղարկել հաստատման</button>
+            <button type="button" onclick="pakelModal('avelacmanModal')" style="width:100%; background:none; color:gray; margin-top:10px; border:none; cursor:pointer;">Փակել</button>
         </form>
     </div>
 </div>
@@ -223,7 +228,6 @@
         <h3>Ադմին մուտք</h3>
         <input type="password" id="gaxtnabarInput" placeholder="Գաղտնաբառ" style="width:100%; margin-bottom:15px; padding:10px;">
         <button onclick="mutqAdmin()" style="width:100%; background:var(--mut-kapuyt); color:white; padding:10px;">Մուտք</button>
-        <button onclick="pakelModal('adminModal')" style="width:100%; background:none; color:gray; margin-top:10px;">Չեղարկել</button>
     </div>
 </div>
 
@@ -232,7 +236,6 @@
 </div>
 
 <script>
-    // Firebase Config
     const firebaseConfig = {
         apiKey: "AIzaSyAXH7T_obCBUuG4zXhY0qpwwBfb3JgMOrI",
         authDomain: "hayshop-b54ab.firebaseapp.com",
@@ -244,7 +247,6 @@
         databaseURL: "https://hayshop-b54ab-default-rtdb.firebaseio.com/"
     };
 
-    // Firebase Initialization
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
@@ -262,7 +264,6 @@
         } else { alert("Սխալ գաղտնաբառ"); }
     }
 
-    // Տվյալների ստացում բազայից իրական ժամանակում
     db.ref('xanutner').on('value', (snapshot) => {
         const data = snapshot.val();
         tvyalner = [];
@@ -278,11 +279,11 @@
     document.getElementById('avelacmanForm').onsubmit = async function(e) {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
-        const logoFayl = document.getElementById('bLogo').files[0];
-        const videoFayl = document.getElementById('bVideo').files[0];
-
         btn.disabled = true;
         btn.innerText = "Վերբեռնվում է...";
+
+        const logoFayl = document.getElementById('bLogo').files[0];
+        const videoFayl = document.getElementById('bVideo').files[0];
 
         const toBase64 = file => new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -295,17 +296,11 @@
             const logoBase64 = await toBase64(logoFayl);
             let videoBase64 = null;
             if (videoFayl) {
-                if (videoFayl.size > 5 * 1024 * 1024) {
-                    alert("Տեսանյութը պետք է լինի 5մբ-ից փոքր:");
-                    btn.disabled = false;
-                    btn.innerText = "Ուղարկել հաստատման";
-                    return;
-                }
+                if (videoFayl.size > 5 * 1024 * 1024) throw new Error("Տեսանյութը մեծ է (max 5MB)");
                 videoBase64 = await toBase64(videoFayl);
             }
 
             const norXanut = {
-                id: Date.now(),
                 anun: document.getElementById('bAnun').value,
                 kaxaq: document.getElementById('bKaxaq').value,
                 nkaragir: document.getElementById('bNkaragir').value,
@@ -314,30 +309,17 @@
                 hastatvac: false
             };
 
-            // Պահպանում Firebase-ում
             await db.ref('xanutner').push(norXanut);
-            
-            alert("Հայտը հաջողությամբ ուղարկված է:");
+            alert("Ուղարկված է հաստատման:");
             pakelModal('avelacmanModal');
             document.getElementById('avelacmanForm').reset();
         } catch (err) {
-            alert("Սխալ բազայի հետ կապ հաստատելիս:");
-            console.error(err);
+            alert(err.message || "Սխալ տվյալների բազայի հետ:");
         } finally {
             btn.disabled = false;
             btn.innerText = "Ուղարկել հաստատման";
         }
     };
-
-    function hastatelHait(fbKey) {
-        db.ref('xanutner/' + fbKey).update({ hastatvac: true });
-    }
-
-    function heracnelHait(fbKey) {
-        if(confirm("Ջնջե՞լ այս հայտը")) {
-            db.ref('xanutner/' + fbKey).remove();
-        }
-    }
 
     function nkarelGulyavorEjy() {
         const grid = document.getElementById('himnakanGrid');
@@ -361,8 +343,8 @@
                     <button class="btn-glxavor" style="width:100%" onclick="ditelManramasn('${item.fbKey}')">Տեսնել ավելին</button>
                     ${adminStatus ? `
                         <div style="margin-top:10px; display:flex; gap:5px;">
-                            ${!item.hastatvac ? `<button onclick="hastatelHait('${item.fbKey}')" style="flex:1; background:var(--kanach); color:white; padding:5px; border-radius:4px; font-size:12px;">Հաստատել</button>` : ''}
-                            <button onclick="heracnelHait('${item.fbKey}')" style="flex:1; background:var(--karmir); color:white; padding:5px; border-radius:4px; font-size:12px;">Ջնջել</button>
+                            ${!item.hastatvac ? `<button onclick="hastatelHait('${item.fbKey}')" style="flex:1; background:var(--kanach); color:white; padding:5px; border-radius:4px;">Հաստատել</button>` : ''}
+                            <button onclick="heracnelHait('${item.fbKey}')" style="flex:1; background:var(--karmir); color:white; padding:5px; border-radius:4px;">Ջնջել</button>
                         </div>
                     ` : ''}
                 </div>
@@ -378,12 +360,15 @@
             <h2 style="margin-top:0">${item.anun}</h2>
             <p><strong>📍 Քաղաք:</strong> ${item.kaxaq}</p>
             <p style="white-space: pre-line;">${item.nkaragir}</p>
-            <img src="${item.logo}" style="width:100%; border-radius:10px; margin-top:10px;">
-            ${item.video ? `<video controls preload="metadata" style="width:100%; border-radius:10px; margin-top:15px;"><source src="${item.video}" type="video/mp4"></video>` : ''}
-            <button onclick="pakelModal('manramasnMall')" style="width:100%; margin-top:20px; background:var(--mut-kapuyt); color:white; padding:12px; border-radius:8px;">Փակել</button>
+            <img src="${item.logo}" style="width:100%; border-radius:10px;">
+            ${item.video ? `<video controls style="width:100%; border-radius:10px; margin-top:10px;"><source src="${item.video}" type="video/mp4"></video>` : ''}
+            <button onclick="pakelModal('manramasnMall')" style="width:100%; margin-top:20px; background:var(--mut-kapuyt); color:white; padding:12px; border-radius:8px; border:none;">Փակել</button>
         `;
         bacelModal('manramasnMall');
     }
+
+    function hastatelHait(fbKey) { db.ref('xanutner/' + fbKey).update({ hastatvac: true }); }
+    function heracnelHait(fbKey) { if(confirm("Ջնջե՞լ")) db.ref('xanutner/' + fbKey).remove(); }
 </script>
 
 </body>
