@@ -60,11 +60,24 @@
     color: #94a3b8;
 }
 
-/* Հեռախոսների համար հարմարեցում */
+/* Հեռախոսների համար կատարյալ հարմարեցում */
 @media (max-width: 600px) {
+    /* Սա հայտարարությունները սարքում է 2 սյունակ (իրար կողքի) */
+    .grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+        padding: 10px 2% !important;
+    }
+
+    /* Սա ֆութերի տեքստերը թողնում է իրար տակ, որպեսզի ընթեռնելի լինի */
     .footer-container {
         grid-template-columns: 1fr;
         text-align: center;
+    }
+
+    /* Նկարների չափը հարմարեցնում ենք փոքր էկրանին */
+    .qart img {
+        height: 130px !important;
     }
 }
         :root {
