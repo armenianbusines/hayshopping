@@ -5,25 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HayShop - Հայկական Խանութների Հարթակ</title>
     <meta name="google-site-verification" content="0QopdvJW7rm6FhaAFvuLryPfVZFbeAU9S5gk27mad7I" />
+    
     <style>
         :root {
-            --primary: #d97706;
-            --secondary: #1e293b;
-            --light: #f1f5f9;
-            --white: #ffffff;
-            --success: #22c55e;
-            --danger: #ef4444;
+            --himnakan: #d97706;
+            --mut-kapuyt: #1e293b;
+            --bac-moxratuyn: #f1f5f9;
+            --spitak: #ffffff;
+            --kanach: #22c55e;
+            --karmir: #ef4444;
         }
 
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
-            background-color: var(--light);
-            color: var(--secondary);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: var(--bac-moxratuyn);
         }
 
         header {
-            background: var(--secondary);
+            background: var(--mut-kapuyt);
             color: white;
             padding: 15px 5%;
             display: flex;
@@ -41,14 +44,12 @@
             border: none;
             cursor: pointer;
             font-weight: bold;
-            transition: 0.2s;
         }
 
-        .btn-main { background: var(--primary); color: white; }
-        .btn-outline { background: transparent; color: white; border: 1px solid white; }
-        .btn-search { background: var(--secondary); color: white; height: 42px; }
+        .btn-glxavor { background: var(--himnakan); color: white; }
+        .btn-shurj { background: transparent; color: white; border: 1px solid white; }
 
-        .search-area {
+        .voronum-area {
             background: white;
             padding: 20px 5%;
             display: flex;
@@ -63,8 +64,9 @@
             padding: 10px;
             border: 1px solid #cbd5e1;
             border-radius: 6px;
-            font-size: 14px;
         }
+
+        .grid-container { flex: 1; }
 
         .grid {
             display: grid;
@@ -73,7 +75,7 @@
             padding: 30px 5%;
         }
 
-        .card {
+        .qart {
             background: white;
             border-radius: 12px;
             overflow: hidden;
@@ -81,17 +83,31 @@
             position: relative;
         }
 
-        .card img { width: 100%; height: 200px; object-fit: cover; }
-        .card-content { padding: 20px; }
+        .qart img { width: 100%; height: 200px; object-fit: cover; }
+        .qart-content { padding: 20px; }
 
-        .status-label {
+        .status-nshum {
             position: absolute;
             top: 10px; right: 10px;
-            background: var(--danger);
+            background: var(--karmir);
             color: white;
             padding: 4px 8px;
             font-size: 12px;
             border-radius: 4px;
+        }
+
+        /* Թարմացված Նեղ և Իջեցված Footer */
+        footer {
+            background: var(--mut-kapuyt);
+            color: white;
+            padding: 40px 5%;
+            margin-top: 120px; /* Իջեցված է ներքև */
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 600px; /* Նեղացված է */
+            margin: 0 auto;
         }
 
         .modal {
@@ -108,16 +124,17 @@
             margin: 40px auto;
             padding: 30px;
             width: 90%;
-            max-width: 550px;
+            max-width: 500px;
             border-radius: 12px;
             max-height: 85vh;
             overflow-y: auto;
+            color: var(--mut-kapuyt);
         }
 
-        .form-group { margin-bottom: 15px; display: flex; flex-direction: column; }
-        .form-group label { margin-bottom: 5px; font-weight: bold; }
+        .form-xmbi { margin-bottom: 15px; display: flex; flex-direction: column; }
+        .form-xmbi label { margin-bottom: 5px; font-weight: bold; }
 
-        video { width: 100%; border-radius: 8px; margin-top: 15px; }
+        video { width: 100%; border-radius: 8px; margin-top: 15px; background: #000; }
     </style>
 </head>
 <body>
@@ -125,45 +142,69 @@
 <header>
     <h2 onclick="location.reload()" style="cursor:pointer">HayShop</h2>
     <div class="nav-btns">
-        <button class="btn-outline" onclick="location.reload()">Գլխավոր</button>
-        <button class="btn-main" onclick="openM('addModal')">+ Ավելացնել</button>
-        <button style="background:#475569; color:white;" onclick="openM('adminModal')">Ադմին</button>
+        <button class="btn-shurj" onclick="location.reload()">Գլխավոր</button>
+        <button class="btn-glxavor" onclick="bacelModal('avelacmanModal')">+ Ավելացնել Բիզնես</button>
+        <button style="background:#475569; color:white;" onclick="bacelModal('adminModal')">Ադմին</button>
     </div>
 </header>
 
-<div class="search-area">
-    <input type="text" id="filterName" placeholder="Որոնել անունով...">
-    <select id="filterCity">
+<div class="voronum-area">
+    <input type="text" id="anvanVoronum" placeholder="Որոնել անունով...">
+    <select id="kaxaqiVoronum">
         <option value="">Բոլոր քաղաքները</option>
         <option value="Երևան">Երևան</option>
         <option value="Գյումրի">Գյումրի</option>
         <option value="Վանաձոր">Վանաձոր</option>
+        <option value="Աբովյան">Աբովյան</option>
+        <option value="Վաղարշապատ">Վաղարշապատ</option>
+        <option value="Հրազդան">Հրազդան</option>
+        <option value="Կապան">Կապան</option>
         <option value="Արմավիր">Արմավիր</option>
         <option value="Դիլիջան">Դիլիջան</option>
     </select>
-    <button class="btn-search" onclick="render()">Որոնել</button>
+    <button class="btn-glxavor" onclick="nkarelGulyavorEjy()">Որոնել</button>
 </div>
 
-<div class="grid" id="mainGrid"></div>
+<div class="grid-container">
+    <div class="grid" id="himnakanGrid"></div>
+</div>
 
-<div id="addModal" class="modal">
+<footer>
+    <div class="footer-content">
+        <h3 style="color: var(--himnakan); margin-bottom: 10px;">Մեր Հարթակի Մասին</h3>
+        <p style="font-size: 14px; opacity: 0.8;">HayShop-ը ստեղծված է աջակցելու հայկական տեղական արտադրողներին և օնլայն խանութներին։</p>
+        
+        <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+            <p style="font-size: 14px; margin-bottom: 5px;">Հարցերի կամ համագործակցության համար՝</p>
+            <a href="mailto:grigoryangrigoryan02@gmail.com" style="color: var(--himnakan); text-decoration: none; font-weight: bold; font-size: 16px;">
+                ✉ grigoryangrigoryan02@gmail.com
+            </a>
+        </div>
+
+        <p style="opacity: 0.5; font-size: 11px; margin-top: 30px;">© 2025 HayShop - Բոլոր իրավունքները պաշտպանված են։</p>
+    </div>
+</footer>
+
+<div id="avelacmanModal" class="modal">
     <div class="modal-body">
         <h3>Ավելացնել Բիզնես</h3>
-        <form id="shopForm">
-            <div class="form-group"><label>Անվանում</label><input type="text" id="shopName" required></div>
-            <div class="form-group">
-                <label>Քաղաք</label>
-                <select id="shopCity" required>
+        <form id="avelacmanForm">
+            <div class="form-xmbi"><label>Անվանում *</label><input type="text" id="bAnun" required></div>
+            <div class="form-xmbi">
+                <label>Քաղաք *</label>
+                <select id="bKaxaq" required>
                     <option value="Երևան">Երևան</option>
                     <option value="Գյումրի">Գյումրի</option>
                     <option value="Վանաձոր">Վանաձոր</option>
+                    <option value="Արմավիր">Արմավիր</option>
+                    <option value="Դիլիջան">Դիլիջան</option>
                 </select>
             </div>
-            <div class="form-group"><label>Նկարագրություն</label><textarea id="shopDesc" rows="3"></textarea></div>
-            <div class="form-group"><label>Լոգո (Նկար)</label><input type="file" id="shopLogo" accept="image/*" required></div>
-            <div class="form-group"><label>Տեսանյութ (Ոչ պարտադիր)</label><input type="file" id="shopVideo" accept="video/*"></div>
-            <button type="submit" style="width:100%; background:var(--success); color:white; padding:12px;">Ուղարկել</button>
-            <button type="button" onclick="closeM('addModal')" style="width:100%; background:none; color:gray;">Փակել</button>
+            <div class="form-xmbi"><label>Նկարագրություն</label><textarea id="bNkaragir" rows="3"></textarea></div>
+            <div class="form-xmbi"><label>Լոգո (Նկար) *</label><input type="file" id="bLogo" accept="image/*" required></div>
+            <div class="form-xmbi"><label>Տեսանյութ (Մինչև 5մբ)</label><input type="file" id="bVideo" accept="video/*"></div>
+            <button type="submit" id="submitBtn" style="width:100%; background:var(--kanach); color:white; padding:12px;">Ուղարկել հաստատման</button>
+            <button type="button" onclick="pakelModal('avelacmanModal')" style="width:100%; background:none; color:gray; margin-top:10px;">Փակել</button>
         </form>
     </div>
 </div>
@@ -171,129 +212,150 @@
 <div id="adminModal" class="modal">
     <div class="modal-body" style="max-width:300px">
         <h3>Ադմին մուտք</h3>
-        <input type="password" id="passInput" placeholder="Գաղտնաբառ" style="width:100%; margin-bottom:15px;">
-        <button onclick="checkAdmin()" style="width:100%; background:var(--secondary); color:white;">Մուտք</button>
+        <input type="password" id="gaxtnabarInput" placeholder="Գաղտնաբառ" style="width:100%; margin-bottom:15px; padding:10px;">
+        <button onclick="mutqAdmin()" style="width:100%; background:var(--mut-kapuyt); color:white; padding:10px;">Մուտք</button>
+        <button onclick="pakelModal('adminModal')" style="width:100%; background:none; color:gray; margin-top:10px;">Չեղարկել</button>
     </div>
 </div>
 
-<div id="detailModal" class="modal">
-    <div class="modal-body" id="detailView"></div>
+<div id="manramasnMall" class="modal">
+    <div class="modal-body" id="manramasnContent"></div>
 </div>
 
 <script>
-    // Տվյալների վերականգնում localStorage-ից
-    let shops = JSON.parse(localStorage.getItem('hayshop_data')) || [];
-    let isAdmin = false;
+    let tvyalner = JSON.parse(localStorage.getItem('hayshop_paxoc')) || [];
+    let adminStatus = false;
 
-    function openM(id) { document.getElementById(id).style.display = 'block'; }
-    function closeM(id) { document.getElementById(id).style.display = 'none'; }
+    function bacelModal(id) { document.getElementById(id).style.display = 'block'; }
+    function pakelModal(id) { document.getElementById(id).style.display = 'none'; }
 
-    function checkAdmin() {
-        if(document.getElementById('passInput').value === "Զաքար") {
-            isAdmin = true;
-            closeM('adminModal');
-            render();
+    function mutqAdmin() {
+        if(document.getElementById('gaxtnabarInput').value === "Զաքար") {
+            adminStatus = true;
+            pakelModal('adminModal');
+            nkarelGulyavorEjy();
         } else { alert("Սխալ գաղտնաբառ"); }
     }
 
-    document.getElementById('shopForm').onsubmit = function(e) {
+    document.getElementById('avelacmanForm').onsubmit = async function(e) {
         e.preventDefault();
-        const logoFile = document.getElementById('shopLogo').files[0];
-        const videoFile = document.getElementById('shopVideo').files[0];
+        const btn = document.getElementById('submitBtn');
+        const logoFayl = document.getElementById('bLogo').files[0];
+        const videoFayl = document.getElementById('bVideo').files[0];
 
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            const newShop = {
+        btn.disabled = true;
+        btn.innerText = "Վերբեռնվում է...";
+
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+
+        try {
+            const logoBase64 = await toBase64(logoFayl);
+            let videoBase64 = null;
+            if (videoFayl) {
+                if (videoFayl.size > 5 * 1024 * 1024) {
+                    alert("Տեսանյութը պետք է լինի 5մբ-ից փոքր:");
+                    btn.disabled = false;
+                    btn.innerText = "Ուղարկել հաստատման";
+                    return;
+                }
+                videoBase64 = await toBase64(videoFayl);
+            }
+
+            const norXanut = {
                 id: Date.now(),
-                name: document.getElementById('shopName').value,
-                city: document.getElementById('shopCity').value,
-                desc: document.getElementById('shopDesc').value,
-                logo: event.target.result,
-                video: videoFile ? URL.createObjectURL(videoFile) : null,
-                approved: false
+                anun: document.getElementById('bAnun').value,
+                kaxaq: document.getElementById('bKaxaq').value,
+                nkaragir: document.getElementById('bNkaragir').value,
+                logo: logoBase64,
+                video: videoBase64,
+                hastatvac: false
             };
-            shops.push(newShop);
-            saveData();
-            alert("Հայտը ստացված է: Զաքարի հաստատումից հետո այն կհայտնվի կայքում:");
-            closeM('addModal');
-            document.getElementById('shopForm').reset();
-            render();
-        };
-        reader.readAsDataURL(logoFile);
+
+            tvyalner.push(norXanut);
+            localStorage.setItem('hayshop_paxoc', JSON.stringify(tvyalner));
+            
+            alert("Հայտը ուղարկված է:");
+            pakelModal('avelacmanModal');
+            document.getElementById('avelacmanForm').reset();
+            nkarelGulyavorEjy();
+        } catch (err) {
+            alert("Սխալ ֆայլի վերբեռնման ժամանակ:");
+        } finally {
+            btn.disabled = false;
+            btn.innerText = "Ուղարկել հաստատման";
+        }
     };
 
-    function approve(id) {
-        const idx = shops.findIndex(s => s.id === id);
-        if(idx > -1) {
-            shops[idx].approved = true;
-            saveData();
-            render();
+    function hastatelHait(id) {
+        const index = tvyalner.findIndex(item => item.id === id);
+        if(index > -1) {
+            tvyalner[index].hastatvac = true;
+            localStorage.setItem('hayshop_paxoc', JSON.stringify(tvyalner));
+            nkarelGulyavorEjy();
         }
     }
 
-    function remove(id) {
-        if(confirm("Ջնջե՞լ այս բիզնեսը")) {
-            shops = shops.filter(s => s.id !== id);
-            saveData();
-            render();
+    function heracnelHait(id) {
+        if(confirm("Ջնջե՞լ այս հայտը")) {
+            tvyalner = tvyalner.filter(item => item.id !== id);
+            localStorage.setItem('hayshop_paxoc', JSON.stringify(tvyalner));
+            nkarelGulyavorEjy();
         }
     }
 
-    function saveData() {
-        // Պահում ենք տվյալները բրաուզերի հիշողության մեջ
-        localStorage.setItem('hayshop_data', JSON.stringify(shops));
-    }
-
-    function render() {
-        const grid = document.getElementById('mainGrid');
-        const fName = document.getElementById('filterName').value.toLowerCase();
-        const fCity = document.getElementById('filterCity').value;
+    function nkarelGulyavorEjy() {
+        const grid = document.getElementById('himnakanGrid');
+        const anunFil = document.getElementById('anvanVoronum').value.toLowerCase();
+        const kaxaqFil = document.getElementById('kaxaqiVoronum').value;
         grid.innerHTML = '';
 
-        shops.forEach(s => {
-            if(!isAdmin && !s.approved) return; // Սովորական օգտատերը տեսնում է միայն հաստատվածները
-            if(fName && !s.name.toLowerCase().includes(fName)) return;
-            if(fCity && s.city !== fCity) return;
+        tvyalner.forEach(item => {
+            if(!adminStatus && !item.hastatvac) return;
+            if(anunFil && !item.anun.toLowerCase().includes(anunFil)) return;
+            if(kaxaqFil && item.kaxaq !== kaxaqFil) return;
 
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                ${!s.approved ? '<div class="status-label">Սպասող</div>' : ''}
-                <img src="${s.logo}">
-                <div class="card-content">
-                    <h3>${s.name}</h3>
-                    <p>📍 ${s.city}</p>
-                    <button class="btn-main" style="width:100%" onclick="view(${s.id})">Տեսնել ավելին</button>
-                    ${isAdmin ? `
+            const qart = document.createElement('div');
+            qart.className = 'qart';
+            qart.innerHTML = `
+                ${!item.hastatvac ? '<div class="status-nshum">Սպասող</div>' : ''}
+                <img src="${item.logo}">
+                <div class="qart-content">
+                    <h3>${item.anun}</h3>
+                    <p>📍 ${item.kaxaq}</p>
+                    <button class="btn-glxavor" style="width:100%" onclick="ditelManramasn(${item.id})">Տեսնել ավելին</button>
+                    ${adminStatus ? `
                         <div style="margin-top:10px; display:flex; gap:5px;">
-                            ${!s.approved ? `<button onclick="approve(${s.id})" style="flex:1; background:var(--success); color:white;">Հաստատել</button>` : ''}
-                            <button onclick="remove(${s.id})" style="flex:1; background:var(--danger); color:white;">Ջնջել</button>
+                            ${!item.hastatvac ? `<button onclick="hastatelHait(${item.id})" style="flex:1; background:var(--kanach); color:white; padding:3px; border-radius:4px; font-size:12px;">Հաստատել</button>` : ''}
+                            <button onclick="heracnelHait(${item.id})" style="flex:1; background:var(--karmir); color:white; padding:3px; border-radius:4px; font-size:12px;">Ջնջել</button>
                         </div>
                     ` : ''}
                 </div>
             `;
-            grid.appendChild(card);
+            grid.appendChild(qart);
         });
     }
 
-    function view(id) {
-        const s = shops.find(x => x.id === id);
-        const view = document.getElementById('detailView');
-        view.innerHTML = `
-            <h2>${s.name}</h2>
-            <p><strong>Քաղաք:</strong> ${s.city}</p>
-            <p>${s.desc}</p>
-            <img src="${s.logo}" style="width:100%; border-radius:10px;">
-            ${s.video ? `<video controls src="${s.video}"></video>` : ''}
-            <button onclick="closeM('detailModal')" style="width:100%; margin-top:20px; background:var(--secondary); color:white;">← Վերադառնալ գլխավոր</button>
+    function ditelManramasn(id) {
+        const item = tvyalner.find(x => x.id === id);
+        const content = document.getElementById('manramasnContent');
+        content.innerHTML = `
+            <h2 style="margin-top:0">${item.anun}</h2>
+            <p><strong>📍 Քաղաք:</strong> ${item.kaxaq}</p>
+            <p style="white-space: pre-line;">${item.nkaragir}</p>
+            <img src="${item.logo}" style="width:100%; border-radius:10px; margin-top:10px;">
+            ${item.video ? `<video controls preload="metadata" style="width:100%; border-radius:10px; margin-top:15px;"><source src="${item.video}" type="video/mp4"></video>` : ''}
+            <button onclick="pakelModal('manramasnMall')" style="width:100%; margin-top:20px; background:var(--mut-kapuyt); color:white; padding:12px; border-radius:8px;">Փակել</button>
         `;
-        openM('detailModal');
+        bacelModal('manramasnMall');
     }
 
-    // Առաջին անգամ բեռնելիս
-    render();
+    nkarelGulyavorEjy();
 </script>
 
 </body>
-
 </html>
