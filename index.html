@@ -38,7 +38,6 @@
             top: 0; z-index: 1000;
         }
 
-        /* Գովազդային Սլայդեր */
         .adv-slider {
             width: 100%;
             height: 400px;
@@ -332,10 +331,10 @@
             <p>${item.nkaragir}</p>
             <img src="${item.logo}" style="width:100%; border-radius:10px;">
             ${item.video ? `
-                <video controls preload="metadata" playsinline style="width:100%; min-height:200px; background:#000; border-radius:10px; margin-top:10px;">
+                <video controls preload="auto" playsinline style="width:100%; min-height:240px; background:#000; border-radius:10px; margin-top:10px;">
+                    <source src="${item.video}" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
                     <source src="${item.video}" type="video/mp4">
-                    <source src="${item.video}" type="video/quicktime">
-                    Ձեր բրաուզերը չի աջակցում այս վիդեո ֆորմատը։
+                    Ձեր բրաուզերը չի աջակցում այս վիդեոն:
                 </video>` : ''}
             <button onclick="pakelModal('manramasnMall')" class="btn-glxavor" style="width:100%; margin-top:20px">Փակել</button>
         `;
