@@ -39,6 +39,51 @@
             top: 0; z-index: 1000;
         }
 
+        /* Գովազդային Սլայդեր */
+        .adv-slider {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+        }
+        .slides {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            animation: slide-animation 12s infinite;
+        }
+        .slide {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            position: relative;
+        }
+        .slide::before {
+            content: '';
+            position: absolute;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.4);
+        }
+        .slide-content {
+            position: relative;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+        }
+        @keyframes slide-animation {
+            0% { transform: translateX(0); }
+            33% { transform: translateX(-33.33%); }
+            66% { transform: translateX(-66.66%); }
+            100% { transform: translateX(0); }
+        }
+
         .nav-btns { display: flex; gap: 10px; }
         
         button {
@@ -122,11 +167,22 @@
         .form-xmbi { margin-bottom: 15px; display: flex; flex-direction: column; }
         .form-xmbi label { margin-bottom: 5px; font-weight: bold; }
 
+        /* Առավելությունների բաժին */
+        .aravelyutyunner {
+            background: white;
+            padding: 40px 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        .arav-item h4 { color: var(--himnakan); margin-bottom: 10px; }
+        .arav-item p { font-size: 14px; color: #64748b; }
+
         footer {
             background: var(--mut-kapuyt);
             color: white;
             padding: 40px 5%;
-            margin-top: 50px;
             text-align: center;
         }
     </style>
@@ -141,6 +197,29 @@
         <button style="background:#475569; color:white;" onclick="bacelModal('adminModal')">Ադմին</button>
     </div>
 </header>
+
+<div class="adv-slider">
+    <div class="slides">
+        <a href="https://armshop.my.canva.site/" target="_blank" class="slide" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80');">
+            <div class="slide-content">
+                <h2>ArmShop - Բացահայտեք Տեղականը</h2>
+                <p>Լավագույն հայկական արտադրանքը մեկ հարթակում:</p>
+            </div>
+        </a>
+        <a href="https://armshop.my.canva.site/" target="_blank" class="slide" style="background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80');">
+            <div class="slide-content">
+                <h2>Որակյալ և Հայկական</h2>
+                <p>Աջակցենք մեր արտադրողին և զարգացնենք տնտեսությունը:</p>
+            </div>
+        </a>
+        <a href="https://armshop.my.canva.site/" target="_blank" class="slide" style="background-image: url('https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1200&q=80');">
+            <div class="slide-content">
+                <h2>Հասանելի բոլորին</h2>
+                <p>Գտեք ձեր նախընտրած խանութը HayShop-ի միջոցով:</p>
+            </div>
+        </a>
+    </div>
+</div>
 
 <div class="voronum-area">
     <input type="text" id="anvanVoronum" placeholder="Որոնել անունով...">
@@ -175,20 +254,38 @@
             <option value="Եղեգնաձոր">Եղեգնաձոր</option><option value="Ջերմուկ">Ջերմուկ</option>
         </optgroup>
         <optgroup label="Տավուշ">
-            <option value="Իջևան">Իջևան</option><option value="Դիլիջան">Դիլիջան</option><option value="Բերդ">Բերդ</option>
-            <option value="նոյեմբերյան">նոյեմբերյան</option>
+            <option value="Իջևան">Իջևան</option><option value="Դիլիջան">Դիլիջան</option><option value="Բերդ">Բերդ</option><option value="նոյեմբերյան">նոյեմբերյան</option>
         </optgroup>
     </select>
     <button class="btn-glxavor" onclick="nkarelGulyavorEjy()">Որոնել</button>
 </div>
 
-<div id="loading">Բեռնվում է...</div>
+<div id="loading" style="text-align:center; padding:20px;">Բեռնվում է...</div>
 <div class="grid" id="himnakanGrid"></div>
+
+<div class="aravelyutyunner">
+    <div class="arav-item">
+        <h4>📍 Միասնական ցանց</h4>
+        <p>Գտեք տեղական բիզնեսներ Հայաստանի բոլոր քաղաքներում:</p>
+    </div>
+    <div class="arav-item">
+        <h4>🚀 Պարզություն</h4>
+        <p>Գրանցեք ձեր բիզնեսը րոպեների ընթացքում՝ առանց դժվարության:</p>
+    </div>
+    <div class="arav-item">
+        <h4>🎥 Մուլտիմեդիա</h4>
+        <p>Ցուցադրեք ձեր ապրանքը նկարների և տեսանյութերի միջոցով:</p>
+    </div>
+    <div class="arav-item">
+        <h4>✅ Վստահություն</h4>
+        <p>Բոլոր հայտարարությունները ստուգվում են մեր թիմի կողմից:</p>
+    </div>
+</div>
 
 <footer>
     <div class="footer-content">
         <h3 style="color: var(--himnakan);">HayShop</h3>
-        <p>Հայկական տեղական բիզնեսների հարթակ:</p>
+        <p>Ձեր բիզնեսի տունը հայկական թվային տիրույթում:</p>
         <p>✉ hayshop333@gmail.com</p>
         <p>© 2025 - Բոլոր իրավունքները պաշտպանված են:</p>
     </div>
@@ -230,6 +327,7 @@
         <h3>Ադմին մուտք</h3>
         <input type="password" id="gaxtnabarInput" placeholder="Գաղտնաբառ" style="width:100%; margin-bottom:15px; padding:10px;">
         <button onclick="mutqAdmin()" style="width:100%; background:var(--mut-kapuyt); color:white; padding:10px;">Մուտք</button>
+        <button type="button" onclick="pakelModal('adminModal')" style="width:100%; background:none; color:gray; margin-top:10px; border:none; cursor:pointer;">Փակել</button>
     </div>
 </div>
 
@@ -345,8 +443,8 @@
                     <button class="btn-glxavor" style="width:100%" onclick="ditelManramasn('${item.fbKey}')">Տեսնել ավելին</button>
                     ${adminStatus ? `
                         <div style="margin-top:10px; display:flex; gap:5px;">
-                            ${!item.hastatvac ? `<button onclick="hastatelHait('${item.fbKey}')" style="flex:1; background:var(--kanach); color:white; padding:5px; border-radius:4px;">Հաստատել</button>` : ''}
-                            <button onclick="heracnelHait('${item.fbKey}')" style="flex:1; background:var(--karmir); color:white; padding:5px; border-radius:4px;">Ջնջել</button>
+                            ${!item.hastatvac ? `<button onclick="hastatelHait('${item.fbKey}')" style="flex:1; background:var(--kanach); color:white; padding:5px; border-radius:4px; cursor:pointer;">Հաստատել</button>` : ''}
+                            <button onclick="heracnelHait('${item.fbKey}')" style="flex:1; background:var(--karmir); color:white; padding:5px; border-radius:4px; cursor:pointer;">Ջնջել</button>
                         </div>
                     ` : ''}
                 </div>
@@ -364,7 +462,7 @@
             <p style="white-space: pre-line;">${item.nkaragir}</p>
             <img src="${item.logo}" style="width:100%; border-radius:10px;">
             ${item.video ? `<video controls style="width:100%; border-radius:10px; margin-top:10px;"><source src="${item.video}" type="video/mp4"></video>` : ''}
-            <button onclick="pakelModal('manramasnMall')" style="width:100%; margin-top:20px; background:var(--mut-kapuyt); color:white; padding:12px; border-radius:8px; border:none;">Փակել</button>
+            <button onclick="pakelModal('manramasnMall')" style="width:100%; margin-top:20px; background:var(--mut-kapuyt); color:white; padding:12px; border-radius:8px; border:none; cursor:pointer;">Փակել</button>
         `;
         bacelModal('manramasnMall');
     }
@@ -375,4 +473,3 @@
 
 </body>
 </html>
-
