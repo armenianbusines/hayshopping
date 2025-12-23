@@ -10,14 +10,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
     <style>
-        .site-footer {
-    background-color: #1e293b; /* Մուտ կապույտ գույն */
-    color: #ffffff;
-    padding: 40px 5% 20px;
-    margin-top: auto;
-    border-top: 4px solid #d97706; /* Նարնջագույն շերտ վերևում */
-}
-
 .footer-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -30,14 +22,14 @@
     color: #d97706;
     font-size: 1.2rem;
     margin-bottom: 15px;
-    border-bottom: 1px solid #475569;
+    border-bottom: 1px solid #a43b42;
     padding-bottom: 10px;
 }
 
 .footer-section p {
     font-size: 0.9rem;
     line-height: 1.6;
-    color: #cbd5e1;
+    color: #a80808a4;
 }
 
 .footer-section ul {
@@ -48,7 +40,7 @@
 .footer-section ul li {
     font-size: 0.9rem;
     margin-bottom: 8px;
-    color: #cbd5e1;
+    color: lab(25.91% 47.99 37.68);
 }
 
 .footer-bottom {
@@ -117,51 +109,35 @@
     background: #000;
 }
 
-/* Սլայդերի շարժվող մասը (5 սլայդ = 500%) */
+/* Սլայդերի շարժվող մասը (6 սլայդ = 500%) */
 .slides {
     display: flex;
-    width: 500%;
+    width: 600%; /* 6 սլայդ x 100% */
     height: 100%;
-    animation: slide-animation 25s infinite ease-in-out;
+    animation: slide-animation 30s infinite ease-in-out;
 }
-
-/* Առանձին սլայդի տեսքը */
 .slide {
-    width: 20%; /* 100 / 5 = 20% */
+    width: 16.666%; /* 100 / 6 սլայդ ≈ 16.666% */
     height: 100%;
-    background-size: cover;      /* Նկարը կծածկի ամբողջ տեղը */
-    background-position: center;  /* Նկարը կլինի կենտրոնում */
+    background-size: cover;
+    background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    flex-shrink: 0;              /* Թույլ չի տա, որ սլայդը սեղմվի */
+    flex-shrink: 0;
 }
 
-/* Մգեցնող շերտ նկարի վրա, որ գիրը երևա */
-.slide::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-}
-
-.slide-content {
-    position: relative;
-    color: white;
-    text-align: center;
-    z-index: 10;
-}
-
-/* Շարժման անիմացիան */
 @keyframes slide-animation {
-    0%, 16% { transform: translateX(0); }
-    20%, 36% { transform: translateX(-20%); }
-    40%, 56% { transform: translateX(-40%); }
-    60%, 76% { transform: translateX(-60%); }
-    80%, 96% { transform: translateX(-80%); }
-    100% { transform: translateX(0); }
+    0%, 13% { transform: translateX(0); }                  /* 1-ին սլայդ */
+    16.66%, 29% { transform: translateX(-16.666%); }       /* 2-րդ սլայդ */
+    33.33%, 46% { transform: translateX(-33.333%); }       /* 3-րդ սլայդ */
+    50%, 63% { transform: translateX(-50%); }              /* 4-րդ սլայդ */
+    66.66%, 79% { transform: translateX(-66.666%); }       /* 5-րդ սլայդ */
+    83.33%, 96% { transform: translateX(-83.333%); }       /* 6-րդ սլայդ */
+    100% { transform: translateX(0); }                     /* Վերադարձ սկիզբ */
 }
+
 
         .nav-btns { display: flex; gap: 10px; }
         
@@ -173,12 +149,28 @@
             font-weight: bold;
             transition: 0.3s;
         }
+.btn-glxavor { 
+            background: var(--himnakan); 
+            color: #ffffff !important; /* Փոխվեց սպիտակի և տեսանելիի */
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-        .btn-glxavor { background: var(--himnakan); color: white; }
-        .btn-shurj { background: transparent; color: white; border: 1px solid white; }
+        .btn-shurj { 
+            background: transparent; 
+            color: #ffffff; /* Փոխվեց սպիտակի, որ ավելի լավ երևա */
+            border: 1px solid white; 
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
 
         .voronum-area {
-            background: white;
+            background: rgb(45, 7, 7);
             padding: 20px 5%;
             display: flex;
             gap: 10px;
@@ -192,6 +184,7 @@
             padding: 10px;
             border: 1px solid #cbd5e1;
             border-radius: 6px;
+            outline: none;
         }
 
         .grid {
@@ -209,7 +202,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             position: relative;
         }
-
         .qart img { width: 100%; height: 200px; object-fit: cover; }
         .qart-content { padding: 20px; }
 
@@ -239,39 +231,66 @@
             padding: 40px 5%;
             text-align: center;
         }
+    .slide-content {
+    position: relative;
+    z-index: 10;
+    padding: 20px;
+}
+
+.slide-content h2 {
+    color: #ffffff; /* Տեքստը դարձնում ենք սպիտակ */
+    font-size: 2.8rem; /* Մի քիչ մեծացնում ենք */
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    
+    /* Ավելացնում ենք ուժեղ ստվեր, որը կարդացվելի կդարձնի տեքստը սպիտակ ֆոնի վրա */
+    text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.8), 0px 0px 5px rgba(0, 0, 0, 1);
+    
+    /* Կամընտիր՝ կարող ես ավելացնել թեթև ֆոն տեքստի տակ */
+    background: rgba(0, 0, 0, 0.2); 
+    padding: 10px 25px;
+    border-radius: 8px;
+    display: inline-block;
+}
     </style>
 </head>
 <body>
-<div class="video-wrap">
-  <video controls playsinline muted preload="metadata">
-    <source src="${item.video}" type="video/mp4">
-  </video>
-  <img src="${item.logo}" class="video-logo">
-</div>
+
 <header>
     <h2 onclick="location.reload()" style="cursor:pointer">HayShop</h2>
     <div class="nav-btns">
         <button class="btn-shurj" onclick="location.reload()">Գլխավոր</button>
         <button class="btn-glxavor" onclick="bacelModal('avelacmanModal')">+ Ավելացնել Բիզնես</button>
-        <button style="background:#475569; color:white;" onclick="bacelModal('adminModal')">Ադմին</button>
+        <button style="background:#050000; color:rgba(0, 0, 0, 0.213);" onclick="bacelModal('adminModal')">Ադմին</button>
     </div>
 </header>
 <div class="adv-slider">
     <div class="slides">
-        <div class="slide" onclick="voronelԸստՍլայդի('վարպետ')" style="background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200'); cursor: pointer;">
-            <div class="slide-content"><h2>Լավագույն Վարպետները</h2></div>
-        </div>
+        <div class="slide" onclick="voronelԸստՍլայդի('շինարար')" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200'); cursor: pointer;">
+    <div class="slide-content"><h2>Շինարարական Աշխատանքներ</h2></div>
+</div>
         
         <div class="slide" onclick="voronelԸստՍլայդի('սրահ')" style="background-image: url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200'); cursor: pointer;">
             <div class="slide-content"><h2>Գեղեցկության Սրահներ</h2></div>
         </div>
-
-        <div class="slide" onclick="voronelԸստՍլայդի('խոհանոց')" style="background-image: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=1200'); cursor: pointer;">
-            <div class="slide-content"><h2>Համեղ Խոհանոց</h2></div>
-        </div>
-
+<div class="slide" onclick="voronelԸստՍլայդի('կերպարվեստ')" style="background-image: url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1200'); cursor: pointer;">
+    <div class="slide-content">
+        <h2>Կերպարվեստ</h2><h2>
+            <div class="slide" onclick="voronelԸստՍլայդի('դիմահարդար')" style="background-image: url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1200'); cursor: pointer;">
+</div>
+        <p style="font-size: 0.6rem; position: absolute; bottom: -20px; right: 0; opacity: 0.8;"></p>
+    </div>
+</div>
+<div class="slide" onclick="voronelԸստՍլայդի('դիզայն')" style="background-image: url('https://images.unsplash.com/photo-1547658719-da2b51169166?w=1200'); cursor: pointer;">
+        <div class="slide-content"><h2>Վեբ Դիզայն</h2></div>
+    </div>
         <div class="slide" onclick="voronelԸստՍլայդի('ավտո')" style="background-image: url('https://images.pexels.com/photos/4489749/pexels-photo-4489749.jpeg?auto=compress&cs=tinysrgb&w=1200'); cursor: pointer;">
             <div class="slide-content"><h2>Ավտոսպասարկում</h2></div>
+        </div>
+        <div class="slide" onclick="voronelԸստՍլայդի('դիմահարդար')" style="background-image: url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1200'); cursor: pointer;">
+    <div class="slide-content"><h2>դիմահարդարում</h2></div>
         </div>
 
         <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200');">
@@ -482,32 +501,45 @@
     };
 
     function nkarelGulyavorEjy() {
-        const grid = document.getElementById('himnakanGrid');
-        grid.innerHTML = '';
-        const nameF = document.getElementById('anvanVoronum').value.toLowerCase();
-        const cityF = document.getElementById('kaxaqiVoronum').value;
+    const grid = document.getElementById('himnakanGrid');
+    grid.innerHTML = '';
+    
+    // Վերցնում ենք որոնման բառը և քաղաքը
+    const searchWord = document.getElementById('anvanVoronum').value.toLowerCase();
+    const cityF = document.getElementById('kaxaqiVoronum').value;
 
-        tvyalner.forEach(item => {
-            if(!adminStatus && !item.hastatvac) return;
-            if(nameF && !item.anun.toLowerCase().includes(nameF)) return;
-            if(cityF && item.kaxaq !== cityF) return;
+    tvyalner.forEach(item => {
+        // 1. Ստուգում ենք՝ արդյոք հաստատված է (եթե ադմին չէ)
+        if(!adminStatus && !item.hastatvac) return;
 
-            const d = document.createElement('div');
-            d.className = 'qart';
-            d.innerHTML = `
-                <img src="${item.logo}">
-                <div class="qart-content">
-                    <h3>${item.anun}</h3>
-                    <p>📍 ${item.kaxaq}</p>
-                    <button class="btn-glxavor" style="width:100%" onclick="ditelManramasn('${item.fbKey}')">Տեսնել ավելին</button>
-                    ${adminStatus ? `<button onclick="hastatel('${item.fbKey}')" style="background:green; color:white; margin-top:5px; width:100%">Հաստատել</button>
-                    <button onclick="heracnel('${item.fbKey}')" style="background:red; color:white; margin-top:5px; width:100%">Ջնջել</button>` : ''}
-                </div>
-            `;
-            grid.appendChild(d);
-        });
-    }
+        // 2. Ստուգում ենք քաղաքը
+        if(cityF && item.kaxaq !== cityF) return;
 
+        // 3. Որոնում ենք ԵՎ՛ անվան մեջ, ԵՎ՛ նկարագրության մեջ
+        const matchesName = item.anun.toLowerCase().includes(searchWord);
+        const matchesDescription = item.nkaragir ? item.nkaragir.toLowerCase().includes(searchWord) : false;
+
+        // Եթե ոչ մեկում չկա բառը, բաց ենք թողնում այս քարտը
+        if(searchWord && !matchesName && !matchesDescription) return;
+
+        // Եթե ամեն ինչ համընկնում է, նկարում ենք քարտը
+        const d = document.createElement('div');
+        d.className = 'qart';
+        d.innerHTML = `
+            <img src="${item.logo}">
+            <div class="qart-content">
+                <h3>${item.anun}</h3>
+                <p>📍 ${item.kaxaq}</p>
+                <button class="btn-glxavor" style="width:100%" onclick="ditelManramasn('${item.fbKey}')">Տեսնել ավելին</button>
+                ${adminStatus ? `
+                    <button onclick="hastatel('${item.fbKey}')" style="background:green; color:white; margin-top:5px; width:100%">Հաստատել</button>
+                    <button onclick="heracnel('${item.fbKey}')" style="background:red; color:white; margin-top:5px; width:100%">Ջնջել</button>
+                ` : ''}
+            </div>
+        `;
+        grid.appendChild(d);
+    });
+}
     function ditelManramasn(key) {
         const item = tvyalner.find(x => x.fbKey === key);
         document.getElementById('manramasnContent').innerHTML = `
