@@ -112,12 +112,13 @@
 /* Սլայդերի շարժվող մասը (6 սլայդ = 500%) */
 .slides {
     display: flex;
-    width: 600%; /* 6 սլայդ x 100% */
+    width: 700%; /* 7 սլայդ x 100% */
     height: 100%;
-    animation: slide-animation 30s infinite ease-in-out;
+    animation: slide-animation 35s infinite ease-in-out; /* Յուրաքանչյուրին 5 վայրկյան */
 }
+
 .slide {
-    width: 16.666%; /* 100 / 6 սլայդ ≈ 16.666% */
+    width: 14.28%; /* 100 / 7 ≈ 14.28% */
     height: 100%;
     background-size: cover;
     background-position: center;
@@ -129,13 +130,14 @@
 }
 
 @keyframes slide-animation {
-    0%, 13% { transform: translateX(0); }                  /* 1-ին սլայդ */
-    16.66%, 29% { transform: translateX(-16.666%); }       /* 2-րդ սլայդ */
-    33.33%, 46% { transform: translateX(-33.333%); }       /* 3-րդ սլայդ */
-    50%, 63% { transform: translateX(-50%); }              /* 4-րդ սլայդ */
-    66.66%, 79% { transform: translateX(-66.666%); }       /* 5-րդ սլայդ */
-    83.33%, 96% { transform: translateX(-83.333%); }       /* 6-րդ սլայդ */
-    100% { transform: translateX(0); }                     /* Վերադարձ սկիզբ */
+    0%, 11% { transform: translateX(0); }                      /* 1-ին սլայդ */
+    14.28%, 25% { transform: translateX(-14.28%); }           /* 2-րդ սլայդ */
+    28.56%, 39% { transform: translateX(-28.56%); }           /* 3-րդ սլայդ */
+    42.84%, 53% { transform: translateX(-42.84%); }           /* 4-րդ սլայդ */
+    57.12%, 68% { transform: translateX(-57.12%); }           /* 5-րդ սլայդ */
+    71.4%, 82% { transform: translateX(-71.4%); }             /* 6-րդ սլայդ */
+    85.68%, 97% { transform: translateX(-85.68%); }           /* 7-րդ սլայդ (նորը) */
+    100% { transform: translateX(0); }                        /* Վերադարձ սկիզբ */
 }
 
 
@@ -292,6 +294,10 @@
         <div class="slide" onclick="voronelԸստՍլայդի('դիմահարդար')" style="background-image: url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1200'); cursor: pointer;">
     <div class="slide-content"><h2>դիմահարդարում</h2></div>
         </div>
+        <div class="slide" onclick="voronelԸստՍլայդի('հյուրանոց')" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200'); cursor: pointer;">
+    <div class="slide-content">
+        <h2>Հյուրանոցներ և Հյուրատներ</h2></div>
+</div>
 
         <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200');">
             <div class="slide-content"><h2 style="color: #22c55e;">Ձեր գովազդը այստեղ</h2><p>hayshop333@gmail.com</p></div>
