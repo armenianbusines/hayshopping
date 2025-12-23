@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="hy">
 <head>
     <meta charset="UTF-8">
@@ -516,5 +516,31 @@
     function hastatel(key) { db.ref('xanutner/' + key).update({ hastatvac: true }); }
     function heracnel(key) { if(confirm("Ջնջե՞լ")) db.ref('xanutner/' + key).remove(); }
 </script>
+<footer style="background: #1e293b; color: white; padding: 40px 5%; margin-top: auto; border-top: 4px solid #d97706; font-family: sans-serif;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px;">
+        
+        <div style="flex: 1; min-width: 250px;">
+            <h3 style="color: #d97706; margin-top: 0;">HayShop</h3>
+            <p style="font-size: 0.95rem; line-height: 1.6; color: #cbd5e1;">
+                Մենք օգնում ենք հայկական բիզնեսներին դառնալ ավելի տեսանելի, իսկ հաճախորդներին՝ գտնել լավագույն ծառայությունները մեկ հարթակում:
+            </p>
+        </div>
+
+        <div style="flex: 1; min-width: 250px;">
+            <h4 style="color: white; margin-top: 0;">Կապ մեզ հետ</h4>
+            <p style="font-size: 0.95rem; color: #cbd5e1;">Հարցերի կամ գովազդի համար գրեք մեզ՝</p>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hayshop333@gmail.com" 
+               target="_blank" 
+               style="color: #d97706; text-decoration: none; font-weight: bold; font-size: 1.1rem; border-bottom: 1px dashed #d97706; padding-bottom: 2px;">
+               hayshop333@gmail.com
+            </a>
+        </div>
+
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; color: #94a3b8;">
+        © 2025 HayShop - Բոլոր իրավունքները պաշտպանված են
+    </div>
+</footer>
 </body>
 </html>
