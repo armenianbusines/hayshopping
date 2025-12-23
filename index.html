@@ -242,7 +242,12 @@
     </style>
 </head>
 <body>
-
+<div class="video-wrap">
+  <video controls playsinline muted preload="metadata">
+    <source src="${item.video}" type="video/mp4">
+  </video>
+  <img src="${item.logo}" class="video-logo">
+</div>
 <header>
     <h2 onclick="location.reload()" style="cursor:pointer">HayShop</h2>
     <div class="nav-btns">
@@ -558,6 +563,7 @@ function voronelԸստՍլայդի(bar) {
     <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; color: #94a3b8;">
         © 2025 HayShop - Բոլոր իրավունքները պաշտպանված են
     </div>
+
 </footer>
 </body>
 </html>
