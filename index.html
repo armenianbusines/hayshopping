@@ -615,4 +615,111 @@ function voronelԸստՍլայդի(bar) {
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
 </script>
+<div id="hayshop-ai" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; font-family: 'Segoe UI', sans-serif;">
+    <button onclick="toggleAI()" style="background: #e74c3c; color: white; border: none; width: 60px; height: 60px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-size: 24px;">💬</button>
+
+    <div id="ai-window" style="display: none; position: absolute; bottom: 80px; right: 0; width: 320px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 1px solid #ddd; overflow: hidden;">
+        <div style="background: #e74c3c; color: white; padding: 15px; text-align: center; font-weight: bold;">HayShop Խելացի Օգնական</div>
+        
+        <div id="ai-content" style="padding: 15px; height: 250px; overflow-y: auto; background: #f9f9f9;">
+            <p style="color: #e74c3c; font-size: 12px; font-weight: bold;">⚠️ ՈՒՇԱԴՐՈՒԹՅՈՒՆ: Խնդրում ենք գրել ՄԻԱՅՆ ՀԱՅԱՏԱՌ:</p>
+            <div id="messages"></div>
+        </div>
+
+        <div style="padding: 10px; border-top: 1px solid #eee; display: flex;">
+            <input type="text" id="user-input" placeholder="Գրեք ձեր հարցը..." style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; outline: none;">
+            <button onclick="askAI()" style="background: #2c3e50; color: white; border: none; padding: 10px; margin-left: 5px; border-radius: 5px; cursor: pointer;">📩</button>
+        </div>
+    </div>
+</div>
+<script>
+</script>
+
+<div id="hayshop-ai" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; font-family: 'Segoe UI', sans-serif;">
+    <button onclick="toggleAI()" style="background: #e74c3c; color: white; border: none; width: 60px; height: 60px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-size: 28px;">💬</button>
+
+    <div id="ai-window" style="display: none; position: absolute; bottom: 80px; right: 0; width: 340px; background: white; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); border: 1px solid #ddd; overflow: hidden;">
+        <div style="background: #2c3e50; color: white; padding: 15px; text-align: center; font-weight: bold;">HayShop Օգնական</div>
+        
+        <div id="ai-content" style="padding: 15px; height: 300px; overflow-y: auto; background: #fdfdfd;">
+            <p style="color: #e74c3c; font-size: 11px; font-weight: bold; text-align: center; margin-bottom: 10px;">⚠️ ԽՆԴՐՈՒՄ ԵՆՔ ԳՐԵԼ ՄԻԱՅՆ ՀԱՅԱՏԱՌ</p>
+            <div id="messages">
+                <p style="background: #ecf0f1; padding: 10px; border-radius: 10px; font-size: 14px; color: #333;">Ողջույն! Ես HayShop-ի խելացի օգնականն եմ: Ինչո՞վ կարող եմ օգնել:</p>
+            </div>
+        </div>
+
+        <div style="padding: 12px; border-top: 1px solid #eee; display: flex; background: #fff;">
+            <input type="text" id="user-input" placeholder="Գրեք հայատառ..." style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 20px; outline: none; font-size: 14px;">
+            <button onclick="askAI()" style="background: #e74c3c; color: white; border: none; width: 40px; height: 40px; margin-left: 8px; border-radius: 50%; cursor: pointer;">🚀</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Ֆունկցիա Բիզնես կոճակի համար
+function openBusinessInfo() {
+    document.getElementById('ai-window').style.display = 'block';
+    let msgDiv = document.getElementById('messages');
+    let response = "<b>Բիզնեսի գրանցում:</b> Պաշտոնական գրանցման համար այցելեք e-register.am: HayShop-ում բիզնես էջի համար գրեք hayshop333@gmail.com:";
+    msgDiv.innerHTML += `<div style='text-align:left; margin-bottom:10px;'><span style='background:#ecf0f1; color:#2c3e50; padding:8px 12px; border-radius:15px; display:inline-block; border:1px solid #ddd;'>🤖 ${response}</span></div>`;
+    document.getElementById('ai-content').scrollTop = document.getElementById('ai-content').scrollHeight;
+}
+
+// Չատը բացել/փակել
+function toggleAI() {
+    var win = document.getElementById('ai-window');
+    win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'block' : 'none';
+}
+
+// Հիմնական տրամաբանություն
+function askAI() {
+    let inputField = document.getElementById('user-input');
+    let rawInput = inputField.value.trim();
+    let input = rawInput.toLowerCase();
+    let msgDiv = document.getElementById('messages');
+
+    if (input === "") return;
+
+    // ՍՏՈՒԳՈՒՄ՝ ՄԻԱՅՆ ՀԱՅԱՏԱՌ
+    let armenianRegex = /^[ա-ֆԱ-Ֆ0-9\s.,?!։՝«»()]+$/;
+
+    if (!armenianRegex.test(rawInput)) {
+        msgDiv.innerHTML += `<div style='text-align:left; margin-bottom:10px;'><span style='background:#f8d7da; color:#721c24; padding:8px 12px; border-radius:15px; display:inline-block; border:1px solid #f5c6cb;'><b>⚠️ Զգուշացում:</b> Խնդրում ենք գրել ՄԻԱՅՆ ՀԱՅԱՏԱՌ:</span></div>`;
+        inputField.value = "";
+        document.getElementById('ai-content').scrollTop = document.getElementById('ai-content').scrollHeight;
+        return; 
+    }
+
+    msgDiv.innerHTML += `<div style='text-align:right; margin-bottom:10px;'><span style='background:#3498db; color:white; padding:8px 12px; border-radius:15px; display:inline-block;'>${rawInput}</span></div>`;
+
+    let response = "Ներողություն, ես չհասկացա ձեր հարցը: Խնդրում եմ գրել ավելի պարզ կամ կապվել hayshop333@gmail.com հասցեով:";
+
+    // ՀԱՐՑԵՐԻ ԲԱԶԱ (KEYWORDS)
+    if (input.includes("ապրանք") || input.includes("ապրանքանիշ") || input.includes("բրենդ")) {
+        response = "<b>Ապրանքի գրանցում:</b> HayShop-ում ապրանք տեղադրելն անվճար է: Իսկ ապրանքանիշի (Brand) պաշտոնական գրանցման համար պետք է դիմել Մտավոր սեփականության գրասենյակ (aipa.am):";
+    } else if (input.includes("բիզնես") || input.includes("գրանցել")) {
+        response = "Բիզնեսի պաշտոնական գրանցման համար դիմեք e-register.am: HayShop-ում բիզնես համագործակցության համար գրեք hayshop333@gmail.com:";
+    } else if (input.includes("տեղադր") || input.includes("ավելացն")) {
+        response = "Սեղմեք «Ավելացնել» կոճակը, լրացրեք տվյալները և կցեք նկարը կամ վիդեոն:";
+    } else if (input.includes("ջնջ") || input.includes("հեռաց")) {
+        response = "Հեռացնելու համար ուղարկեք հայտարարության սքրինշոթը hayshop333@gmail.com հասցեին:";
+    } else if (input.includes("գովազդ") || input.includes("վիպ") || input.includes("թեժ")) {
+        response = "Գովազդի և VIP հայտարարությունների համար գրեք hayshop333@gmail.com հասցեին:";
+    } else if (input.includes("հաստատ") || input.includes("երբ")) {
+        response = "Հայտերը հաստատվում են 10-ից 30 րոպեի ընթացքում:";
+    } else if (input.includes("բարև") || input.includes("ողջույն")) {
+        response = "Ողջույն! Ինչո՞վ կարող եմ օգնել ձեզ այսօր:";
+    }
+
+    setTimeout(() => {
+        msgDiv.innerHTML += `<div style='text-align:left; margin-bottom:10px;'><span style='background:#ecf0f1; color:#2c3e50; padding:8px 12px; border-radius:15px; display:inline-block; border:1px solid #ddd;'><b>Բոտ:</b> ${response}</span></div>`;
+        inputField.value = "";
+        document.getElementById('ai-content').scrollTop = document.getElementById('ai-content').scrollHeight;
+    }, 600);
+}
+
+document.getElementById("user-input").addEventListener("keyup", function(event) {
+    if (event.key === "Enter") askAI();
+});
+</script>
 </body>
