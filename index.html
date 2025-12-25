@@ -1,49 +1,618 @@
 <!DOCTYPE html>
 <html lang="hy">
 <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XD8XZ00NJ5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XD8XZ00NJ5');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HayShop TV</title>
+    <title>HayShop - Հայկական Խանութների Հարթակ</title>
+    <meta name="google-site-verification" content="0QopdvJW7rm6FhaAFvuLryPfVZFbeAU9S5gk27mad7I" />
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
     <style>
-        body { font-family: sans-serif; background: #000; color: #fff; text-align: center; margin: 0; }
-        header { padding: 20px; background: #1a1a1a; border-bottom: 3px solid red; }
-        .video-container { max-width: 800px; margin: 20px auto; padding: 10px; }
-        .video-box { margin-bottom: 40px; background: #111; padding: 10px; border-radius: 10px; }
-        iframe { width: 100%; aspect-ratio: 16 / 9; border-radius: 8px; border: 2px solid #333; }
-        h3 { margin-top: 15px; color: #ccc; }
-        .back-btn { display: inline-block; padding: 12px 25px; background: red; color: white; text-decoration: none; border-radius: 5px; margin-bottom: 50px; }
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section h3 {
+    color: #d97706;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #a43b42;
+    padding-bottom: 10px;
+}
+
+.footer-section p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #a80808a4;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: lab(25.91% 47.99 37.68);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #475569;
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+/* Հեռախոսների համար կատարյալ հարմարեցում */
+@media (max-width: 600px) {
+    /* Սա հայտարարությունները սարքում է 2 սյունակ (իրար կողքի) */
+    .grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+        padding: 10px 2% !important;
+    }
+
+    /* Սա ֆութերի տեքստերը թողնում է իրար տակ, որպեսզի ընթեռնելի լինի */
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    /* Նկարների չափը հարմարեցնում ենք փոքր էկրանին */
+    .qart img {
+        height: 130px !important;
+    }
+}
+        :root {
+            --himnakan: #d97706;
+            --mut-kapuyt: #1e293b;
+            --bac-moxratuyn: #f1f5f9;
+            --spitak: #ffffff;
+            --kanach: #22c55e;
+            --karmir: #ef4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: var(--bac-moxratuyn);
+        }
+
+        header {
+            background: var(--mut-kapuyt);
+            color: white;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0; z-index: 1000;
+        }
+/* Սլայդերի հիմնական չափսերը */
+.adv-slider {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+    background: #000;
+}
+
+/* Սլայդերի շարժվող մասը (6 սլայդ = 500%) */
+.slides {
+    display: flex;
+    width: 700%; /* 7 սլայդ x 100% */
+    height: 100%;
+    animation: slide-animation 35s infinite ease-in-out; /* Յուրաքանչյուրին 5 վայրկյան */
+}
+
+.slide {
+    width: 14.28%; /* 100 / 7 ≈ 14.28% */
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+}
+
+@keyframes slide-animation {
+    0%, 11% { transform: translateX(0); }                      /* 1-ին սլայդ */
+    14.28%, 25% { transform: translateX(-14.28%); }           /* 2-րդ սլայդ */
+    28.56%, 39% { transform: translateX(-28.56%); }           /* 3-րդ սլայդ */
+    42.84%, 53% { transform: translateX(-42.84%); }           /* 4-րդ սլայդ */
+    57.12%, 68% { transform: translateX(-57.12%); }           /* 5-րդ սլայդ */
+    71.4%, 82% { transform: translateX(-71.4%); }             /* 6-րդ սլայդ */
+    85.68%, 97% { transform: translateX(-85.68%); }           /* 7-րդ սլայդ (նորը) */
+    100% { transform: translateX(0); }                        /* Վերադարձ սկիզբ */
+}
+
+
+        .nav-btns { display: flex; gap: 10px; }
+        
+        button {
+            padding: 10px 18px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+.btn-glxavor { 
+            background: var(--himnakan); 
+            color: #ffffff !important; /* Փոխվեց սպիտակի և տեսանելիի */
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-shurj { 
+            background: transparent; 
+            color: #ffffff; /* Փոխվեց սպիտակի, որ ավելի լավ երևա */
+            border: 1px solid white; 
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .voronum-area {
+            background: rgb(45, 7, 7);
+            padding: 20px 5%;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #ddd;
+        }
+
+        input, select {
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 30px 5%;
+            flex: 1;
+        }
+
+        .qart {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        .qart img { width: 100%; height: 200px; object-fit: cover; }
+        .qart-content { padding: 20px; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+        }
+
+        .modal-body {
+            background: white;
+            margin: 40px auto;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 12px;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .footer-content {
+            background: var(--mut-kapuyt);
+            color: white;
+            padding: 40px 5%;
+            text-align: center;
+        }
+    .slide-content {
+    position: relative;
+    z-index: 10;
+    padding: 20px;
+}
+
+.slide-content h2 {
+    color: #ffffff; /* Տեքստը դարձնում ենք սպիտակ */
+    font-size: 2.8rem; /* Մի քիչ մեծացնում ենք */
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    
+    /* Ավելացնում ենք ուժեղ ստվեր, որը կարդացվելի կդարձնի տեքստը սպիտակ ֆոնի վրա */
+    text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.8), 0px 0px 5px rgba(0, 0, 0, 1);
+    
+    /* Կամընտիր՝ կարող ես ավելացնել թեթև ֆոն տեքստի տակ */
+    background: rgba(0, 0, 0, 0.2); 
+    padding: 10px 25px;
+    border-radius: 8px;
+    display: inline-block;
+}
     </style>
 </head>
 <body>
 
 <header>
-    <h1>📺 HayShop TV</h1>
+    <h2 onclick="location.reload()" style="cursor:pointer">HayShop</h2>
+    <div class="nav-btns">
+        <button class="btn-shurj" onclick="location.reload()">Գլխավոր</button>
+        <button class="btn-glxavor" onclick="bacelModal('avelacmanModal')">+ Ավելացնել Բիզնես</button>
+        <button style="background:#050000; color:rgb(255, 255, 255);" onclick="bacelModal('adminModal')">Ադմին</button>
+    </div>
 </header>
-
-<div class="video-container">
-
-    <div class="video-box">
-        <iframe src="https://www.youtube.com/embed/Fl4Rorib2UE?rel=0" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin" 
-                allowfullscreen></iframe>
-        <h3>🛠 Ինչպես նոր շունչ տալ հին իրերին</h3>
+<div class="adv-slider">
+    <div class="slides">
+        <div class="slide" onclick="voronelԸստՍլայդի('շինարար')" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200'); cursor: pointer;">
+    <div class="slide-content"><h2>Շինարարական Աշխատանքներ</h2></div>
+</div>
+        
+        <div class="slide" onclick="voronelԸստՍլայդի('սրահ')" style="background-image: url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200'); cursor: pointer;">
+            <div class="slide-content"><h2>Գեղեցկության Սրահներ</h2></div>
+        </div>
+<div class="slide" onclick="voronelԸստՍլայդի('կերպարվեստ')" style="background-image: url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1200'); cursor: pointer;">
+    <div class="slide-content">
+        <h2>Կերպարվեստ</h2><h2>
+            <div class="slide" onclick="voronelԸստՍլայդի('դիմահարդար')" style="background-image: url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1200'); cursor: pointer;">
+</div>
+        <p style="font-size: 0.6rem; position: absolute; bottom: -20px; right: 0; opacity: 0.8;"></p>
     </div>
-
-    <div class="video-box">
-        <iframe src="https://www.youtube.com/embed/GMvgqInbtYk?rel=0" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin" 
-                allowfullscreen></iframe>
-        <h3>📦 Բիզնես գաղափարներ և վաճառք</h3>
+</div>
+<div class="slide" onclick="voronelԸստՍլայդի('դիզայն')" style="background-image: url('https://images.unsplash.com/photo-1547658719-da2b51169166?w=1200'); cursor: pointer;">
+        <div class="slide-content"><h2>Վեբ Դիզայն</h2></div>
     </div>
-
-    <a href="index.html" class="back-btn">⬅ Վերադառնալ Գլխավոր էջ</a>
+        <div class="slide" onclick="voronelԸստՍլայդի('ավտո')" style="background-image: url('https://images.pexels.com/photos/4489749/pexels-photo-4489749.jpeg?auto=compress&cs=tinysrgb&w=1200'); cursor: pointer;">
+            <div class="slide-content"><h2>Ավտոսպասարկում</h2></div>
+        </div>
+        <div class="slide" onclick="voronelԸստՍլայդի('դիմահարդար')" style="background-image: url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1200'); cursor: pointer;">
+    <div class="slide-content"><h2>դիմահարդարում</h2></div>
+        </div>
+        <div class="slide" onclick="voronelԸստՍլայդի('հյուրանոց')" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200'); cursor: pointer;">
+    <div class="slide-content">
+        <h2>Հյուրանոցներ և Հյուրատներ</h2></div>
 </div>
 
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200');">
+            <div class="slide-content"><h2 style="color: #22c55e;">Ձեր գովազդը այստեղ</h2><p>hayshop333@gmail.com</p></div>
+        </div>
+    </div>
+</div>
+
+<div class="voronum-area">
+    <input type="text" id="anvanVoronum" placeholder="Որոնել անունով...">
+<select id="kaxaqiVoronum">
+    <option value="">Բոլոր քաղաքները</option>
+    <option value="Երևան">Երևան</option>
+    <option value="Աբովյան">Աբովյան</option>
+    <option value="Ագարակ">Ագարակ</option>
+    <option value="Ալավերդի">Ալավերդի</option>
+    <option value="Ապարան">Ապարան</option>
+    <option value="Արարատ">Արարատ</option>
+    <option value="Արթիկ">Արթիկ</option>
+    <option value="Արմավիր">Արմավիր</option>
+    <option value="Արտաշատ">Արտաշատ</option>
+    <option value="Աշտարակ">Աշտարակ</option>
+    <option value="Բերդ">Բերդ</option>
+    <option value="Բյուրեղավան">Բյուրեղավան</option>
+    <option value="Գավառ">Գավառ</option>
+    <option value="Գյումրի">Գյումրի</option>
+    <option value="Գորիս">Գորիս</option>
+    <option value="Դաստակերտ">Դաստակերտ</option>
+    <option value="Դիլիջան">Դիլիջան</option>
+    <option value="Եղեգնաձոր">Եղեգնաձոր</option>
+    <option value="Եղվարդ">Եղվարդ</option>
+    <option value="Ճամբարակ">Ճամբարակ</option>
+    <option value="Մարալիկ">Մարալիկ</option>
+    <option value="Մարտունի">Մարտունի</option>
+    <option value="Մասիս">Մասիս</option>
+    <option value="Մեղրի">Մեղրի</option>
+    <option value="Մեծամոր">Մեծամոր</option>
+    <option value="Նոր Հաճն">Նոր Հաճն</option>
+    <option value="Նոյեմբերյան">Նոյեմբերյան</option>
+    <option value="Շամլուղ">Շամլուղ</option>
+    <option value="Չարենցավան">Չարենցավան</option>
+    <option value="Ջերմուկ">Ջերմուկ</option>
+    <option value="Սիսիան">Սիսիան</option>
+    <option value="Սպիտակ">Սպիտակ</option>
+    <option value="Ստեփանավան">Ստեփանավան</option>
+    <option value="Սևան">Սևան</option>
+    <option value="Վայք">Վայք</option>
+    <option value="Վանաձոր">Վանաձոր</option>
+    <option value="Վարդենիս">Վարդենիս</option>
+    <option value="Վեդի">Վեդի</option>
+    <option value="Տաշիր">Տաշիր</option>
+    <option value="Քաջարան">Քաջարան</option>
+</select>
+    </select>
+    <button class="btn-glxavor" onclick="nkarelGulyavorEjy()">Որոնել</button>
+</div>
+
+<div id="loading" style="text-align:center; padding:20px;">Բեռնվում է...</div>
+<div class="grid" id="himnakanGrid"></div>
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-section about">
+            <h3>HayShop Հարթակի Մասին</h3>
+            <p>HayShop-ը ժամանակակից հայկական հարթակ է, որը ստեղծված է տեղական բիզնեսներին և հաճախորդներին մեկ տեղում հանդիպեցնելու համար: Մենք օգնում ենք փոքր և միջին ձեռնարկություններին լինել տեսանելի թվային աշխարհում:</p>
+        </div>
+
+        <div class="footer-section solutions">
+            <h3>Ի՞նչ լուծումներ ենք առաջարկում</h3>
+            <ul>
+                <li>✅ Բիզնեսի թվային ներկայացվածություն</li>
+                <li>✅ Տեսանյութերի միջոցով ծառայությունների ցուցադրում</li>
+                <li>✅ Թիրախային որոնում ըստ քաղաքների</li>
+                <li>✅ Արագ կապ հաճախորդների հետ</li>
+            </ul>
+        </div>
+
+        <div class="footer-section why-us">
+            <h3>Ինչո՞ւ գրանցվել մեզ մոտ</h3>
+            <p>Գրանցվելով HayShop-ում՝ Դուք ստանում եք անվճար գովազդային հարթակ, որը հասանելի է Հայաստանի բոլոր քաղաքներում: Մեր կայքը օպտիմիզացված է այնպես, որ աշխատի անգամ ամենաթույլ սարքերի վրա՝ Ձեզ ապահովելով առավելագույն լսարան:</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2025 HayShop - Բոլոր իրավունքները պաշտպանված են</p>
+    </div>
+</footer>
+
+<div id="avelacmanModal" class="modal"><div class="modal-body">
+    <h3>Ավելացնել Բիզնես</h3>
+    <form id="avelacmanForm">
+        <input type="text" id="bAnun" placeholder="Անվանում" required style="width:100%; margin-bottom:10px;">
+        <select id="bKaxaq" required style="width:100%; margin-bottom:10px;">
+    <option value="" disabled selected>Ընտրեք քաղաքը</option>
+    <option value="Երևան">Երևան</option>
+    <option value="Աբովյան">Աբովյան</option>
+    <option value="Ագարակ">Ագարակ</option>
+    <option value="Ալավերդի">Ալավերդի</option>
+    <option value="Ապարան">Ապարան</option>
+    <option value="Արարատ">Արարատ</option>
+    <option value="Արթիկ">Արթիկ</option>
+    <option value="Արմավիր">Արմավիր</option>
+    <option value="Արտաշատ">Արտաշատ</option>
+    <option value="Աշտարակ">Աշտարակ</option>
+    <option value="Բերդ">Բերդ</option>
+    <option value="Բյուրեղավան">Բյուրեղավան</option>
+    <option value="Գավառ">Գավառ</option>
+    <option value="Գյումրի">Գյումրի</option>
+    <option value="Գորիս">Գորիս</option>
+    <option value="Դաստակերտ">Դաստակերտ</option>
+    <option value="Դիլիջան">Դիլիջան</option>
+    <option value="Եղեգնաձոր">Եղեգնաձոր</option>
+    <option value="Եղվարդ">Եղվարդ</option>
+    <option value="Ճամբարակ">Ճամբարակ</option>
+    <option value="Մարալիկ">Մարալիկ</option>
+    <option value="Մարտունի">Մարտունի</option>
+    <option value="Մասիս">Մասիս</option>
+    <option value="Մեղրի">Մեղրի</option>
+    <option value="Մեծամոր">Մեծամոր</option>
+    <option value="Նոր Հաճն">Նոր Հաճն</option>
+    <option value="Նոյեմբերյան">Նոյեմբերյան</option>
+    <option value="Շամլուղ">Շամլուղ</option>
+    <option value="Չարենցավան">Չարենցավան</option>
+    <option value="Ջերմուկ">Ջերմուկ</option>
+    <option value="Սիսիան">Սիսիան</option>
+    <option value="Սպիտակ">Սպիտակ</option>
+    <option value="Ստեփանավան">Ստեփանավան</option>
+    <option value="Սևան">Սևան</option>
+    <option value="Վայք">Վայք</option>
+    <option value="Վանաձոր">Վանաձոր</option>
+    <option value="Վարդենիս">Վարդենիս</option>
+    <option value="Վեդի">Վեդի</option>
+    <option value="Տաշիր">Տաշիր</option>
+    <option value="Քաջարան">Քաջարան</option>
+</select>
+        </select>
+        <textarea id="bNkaragir" placeholder="Նկարագրություն" style="width:100%; margin-bottom:10px;"></textarea>
+        <label>Նկար:</label><input type="file" id="bLogo" accept="image/*" required style="margin-bottom:10px;"><br>
+        <label>Վիդեո:</label><input type="file" id="bVideo" accept="video/*" style="margin-bottom:10px;">
+        <button type="submit" id="submitBtn" class="btn-glxavor" style="width:100%">Ուղարկել հաստատման</button>
+        <button type="button" onclick="pakelModal('avelacmanModal')" style="width:100%; background:none; border:none; color:gray; cursor:pointer; margin-top:10px;">Փակել</button>
+    </form>
+</div></div>
+
+<div id="adminModal" class="modal"><div class="modal-body" style="max-width:300px">
+    <h3>Ադմին մուտք</h3>
+    <input type="password" id="gaxtnabarInput" placeholder="Գաղտնաբառ" style="width:100%; margin-bottom:15px;">
+    <button onclick="mutqAdmin()" class="btn-glxavor" style="width:100%">Մուտք</button>
+</div></div>
+
+<div id="manramasnMall" class="modal"><div class="modal-body" id="manramasnContent"></div></div>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyAXH7T_obCBUuG4zXhY0qpwwBfb3JgMOrI",
+        authDomain: "hayshop-b54ab.firebaseapp.com",
+        projectId: "hayshop-b54ab",
+        storageBucket: "hayshop-b54ab.firebasestorage.app",
+        messagingSenderId: "342283633284",
+        appId: "1:342283633284:web:7e2def7ad150124636f8d1",
+        measurementId: "G-XD8XZ00NJ5",
+        databaseURL: "https://hayshop-b54ab-default-rtdb.firebaseio.com/"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    let tvyalner = [];
+    let adminStatus = false;
+
+    function bacelModal(id) { document.getElementById(id).style.display = 'block'; }
+    function pakelModal(id) { document.getElementById(id).style.display = 'none'; }
+
+    function mutqAdmin() {
+        if(document.getElementById('gaxtnabarInput').value === "Զաքար") {
+            adminStatus = true; pakelModal('adminModal'); nkarelGulyavorEjy();
+        } else alert("Սխալ գաղտնաբառ");
+    }
+
+    db.ref('xanutner').on('value', (snapshot) => {
+        const data = snapshot.val();
+        tvyalner = [];
+        if (data) Object.keys(data).forEach(key => tvyalner.push({ fbKey: key, ...data[key] }));
+        document.getElementById('loading').style.display = 'none';
+        nkarelGulyavorEjy();
+    });
+
+    document.getElementById('avelacmanForm').onsubmit = async function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true; btn.innerText = "Բեռնվում է...";
+        const toBase64 = file => new Promise((res, rej) => {
+            const r = new FileReader(); r.readAsDataURL(file);
+            r.onload = () => res(r.result); r.onerror = e => rej(e);
+        });
+
+        try {
+            const logo = await toBase64(document.getElementById('bLogo').files[0]);
+            let video = null;
+            if(document.getElementById('bVideo').files[0]) video = await toBase64(document.getElementById('bVideo').files[0]);
+            await db.ref('xanutner').push({
+                anun: document.getElementById('bAnun').value,
+                kaxaq: document.getElementById('bKaxaq').value,
+                nkaragir: document.getElementById('bNkaragir').value,
+                logo, video, hastatvac: false
+            });
+            alert("Հաջողությամբ ուղարկվեց:"); pakelModal('avelacmanModal');
+        } catch (err) { alert("Սխալ վերբեռնման ժամանակ:"); }
+        finally { btn.disabled = false; btn.innerText = "Ուղարկել հաստատման"; }
+    };
+
+    function nkarelGulyavorEjy() {
+    const grid = document.getElementById('himnakanGrid');
+    grid.innerHTML = '';
+    
+    // Վերցնում ենք որոնման բառը և քաղաքը
+    const searchWord = document.getElementById('anvanVoronum').value.toLowerCase();
+    const cityF = document.getElementById('kaxaqiVoronum').value;
+
+    tvyalner.forEach(item => {
+        // 1. Ստուգում ենք՝ արդյոք հաստատված է (եթե ադմին չէ)
+        if(!adminStatus && !item.hastatvac) return;
+
+        // 2. Ստուգում ենք քաղաքը
+        if(cityF && item.kaxaq !== cityF) return;
+
+        // 3. Որոնում ենք ԵՎ՛ անվան մեջ, ԵՎ՛ նկարագրության մեջ
+        const matchesName = item.anun.toLowerCase().includes(searchWord);
+        const matchesDescription = item.nkaragir ? item.nkaragir.toLowerCase().includes(searchWord) : false;
+
+        // Եթե ոչ մեկում չկա բառը, բաց ենք թողնում այս քարտը
+        if(searchWord && !matchesName && !matchesDescription) return;
+
+        // Եթե ամեն ինչ համընկնում է, նկարում ենք քարտը
+        const d = document.createElement('div');
+        d.className = 'qart';
+        d.innerHTML = `
+            <img src="${item.logo}">
+            <div class="qart-content">
+                <h3>${item.anun}</h3>
+                <p>📍 ${item.kaxaq}</p>
+                <button class="btn-glxavor" style="width:100%" onclick="ditelManramasn('${item.fbKey}')">Տեսնել ավելին</button>
+                ${adminStatus ? `
+                    <button onclick="hastatel('${item.fbKey}')" style="background:green; color:white; margin-top:5px; width:100%">Հաստատել</button>
+                    <button onclick="heracnel('${item.fbKey}')" style="background:red; color:white; margin-top:5px; width:100%">Ջնջել</button>
+                ` : ''}
+            </div>
+        `;
+        grid.appendChild(d);
+    });
+}
+    function ditelManramasn(key) {
+        const item = tvyalner.find(x => x.fbKey === key);
+        document.getElementById('manramasnContent').innerHTML = `
+            <h2>${item.anun}</h2>
+            <p>${item.nkaragir}</p>
+            <img src="${item.logo}" style="width:100%; border-radius:10px;">
+            ${item.video ? `
+                <video controls preload="auto" playsinline style="width:100%; min-height:240px; background:#000; border-radius:10px; margin-top:10px;">
+                    <source src="${item.video}" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+                    <source src="${item.video}" type="video/mp4">
+                    Ձեր բրաուզերը չի աջակցում այս վիդեոն:
+                </video>` : ''}
+            <button onclick="pakelModal('manramasnMall')" class="btn-glxavor" style="width:100%; margin-top:20px">Փակել</button>
+        `;
+        bacelModal('manramasnMall');
+    }
+
+    function hastatel(key) { db.ref('xanutner/' + key).update({ hastatvac: true }); }
+    function heracnel(key) { if(confirm("Ջնջե՞լ")) db.ref('xanutner/' + key).remove(); }
+function voronelԸստՍլայդի(bar) {
+    const searchInput = document.getElementById('anvanVoronum');
+    if (searchInput) {
+        searchInput.value = bar; // Գրում ենք բառը որոնման դաշտում
+        nkarelGulyavorEjy();    // Թարմացնում ենք արդյունքները
+        
+        // Էջը սահուն բերում ենք ՈՐՈՆՄԱՆ ԴԱՇՏԻ մոտ, ոչ թե ցանցի
+        searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+</script>
+<footer style="background: #1e293b; color: white; padding: 40px 5%; margin-top: auto; border-top: 4px solid #d97706; font-family: sans-serif;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px;">
+        
+        <div style="flex: 1; min-width: 250px;">
+            <h3 style="color: #d97706; margin-top: 0;">HayShop</h3>
+            <p style="font-size: 0.95rem; line-height: 1.6; color: #cbd5e1;">
+                Մենք օգնում ենք հայկական բիզնեսներին դառնալ ավելի տեսանելի, իսկ հաճախորդներին՝ գտնել լավագույն ծառայությունները մեկ հարթակում:
+            </p>
+        </div>
+
+        <div style="flex: 1; min-width: 250px;">
+            <h4 style="color: white; margin-top: 0;">Կապ մեզ հետ</h4>
+            <p style="font-size: 0.95rem; color: #cbd5e1;">Հարցերի կամ գովազդի համար գրեք մեզ՝</p>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hayshop333@gmail.com" 
+               target="_blank" 
+               style="color: #d97706; text-decoration: none; font-weight: bold; font-size: 1.1rem; border-bottom: 1px dashed #d97706; padding-bottom: 2px;">
+               hayshop333@gmail.com
+            </a>
+        </div>
+
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; color: #94a3b8;">
+        © 2025 HayShop - Բոլոր իրավունքները պաշտպանված են
+    </div>
+
+</footer>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
+</script>
 </body>
-</html>
